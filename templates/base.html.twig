@@ -15,8 +15,16 @@
     {% endblock %}
 </head>
 <body>
+
 <div class="flex">
-    <div class="bg-blue-500 h-screen p-5 pt-8 w-2/12 relative">
+    {% if app.environment != 'prod' %}
+        <div class="fixed top-0 h-6 bg-red-400 w-screen z-10 mb-10 text-center text-white font-bold">
+        <span>
+            You are currently running on {{ app.environment }} environment! - NOT FOR PRODUCTION USE
+        </span>
+        </div>
+    {% endif %}
+    <div class="bg-blue-500 h-screen p-5 pt-14 w-2/12 relative">
         {#        <i class="gg-arrow-left-r bg-white text-black text-3xl rounded-full absolute -right-3 top-9 border border-black cursor-pointer"></i> #}
         <div class="inline-flex items-center content-center w-full">
             <i class="gg-pin bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-3 ml-3"></i>
@@ -52,7 +60,9 @@
 
         </ul>
     </div>
-    {% block body %}{% endblock %}
+    <div class="pt-3">
+        {% block body %}{% endblock %}
+    </div>
 </div>
 </body>
 </html>
