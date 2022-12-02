@@ -6,17 +6,35 @@
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
+    <div class="h-screen w-10/12 overflow-hidden flex ">
+        <div class="m-auto w-8/12">
+            <div class="p-3 w-10/12 rounded overflow-hidden shadow-lg bg-gray-100 text-center block">
+                <div class="font-bold text-xl mb-2 h1">IntelHub Registration</div>
+                <form method="post">
+                    {{ form_start(registrationForm) }}
+                    <div class="mt-5 mb-5 text-center">
+                        <div class="w-10/12 mt-3 mb-3 m-auto">
+                            {{ form_row(registrationForm.username, {'attr': {'class': 'form-control w-full rounded'}}) }}
+                        </div>
+                        <div class="w-10/12 mt-3 mb-3 m-auto">
+                            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control w-full rounded'}}) }}
+                        </div>
+                        <div class="w-10/12 mt-3 mb-3 m-auto">
+                            {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control w-full rounded'}}) }}
+                        </div>
+                        <div class="w-10/12 mt-3 mb-3 m-auto">
+                            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-control w-full rounded'}}) }}
+                        </div>
+                    </div>
 
-    <h1>Register</h1>
+                    <button class="btn btn-lg bg-green-500 text-white p-2 w-2/12 rounded font-bold mt-5" type="submit">
+                        Register
+                    </button>
+                    {{ form_end(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
