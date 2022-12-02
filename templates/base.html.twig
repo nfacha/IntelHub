@@ -27,10 +27,28 @@
                 <i class="gg-home mr-3"></i>
                 <a href="">Home</a>
             </li>
-            <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                <i class="gg-terminal mr-3"></i>
-                <a href="">Settings</a>
-            </li>
+            {% if not app.user %}
+                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
+                    <i class="gg-lock mr-3"></i>
+                    <a href="{{ path('app_login') }}">Login</a>
+                </li>
+                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
+                    <i class="gg-user-add mr-3"></i>
+                    <a href="{{ path('app_register') }}">Register</a>
+                </li>
+            {% else %}
+                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
+                    <i class="gg-terminal mr-3"></i>
+                    <a href="">Settings</a>
+                </li>
+
+
+                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
+                    <i class="gg-user-remove mr-3"></i>
+                    <a href="{{ path('app_logout') }}">Logout</a>
+                </li>
+            {% endif %}
+
 
         </ul>
     </div>
