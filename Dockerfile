@@ -29,7 +29,7 @@ WORKDIR /var/www/intelhub
 COPY . /var/www/intelhub/
 COPY ./.env.sample /var/www/intelhub/.env
 RUN composer install
-RUN npm i yarn && yarn install && yarn run build
+RUN npm i yarn && yarn install && yarn encore production
 RUN rm -rf /var/www/intelhub/.env
 
 COPY service-config/supervisor/supervisord.conf /etc/supervisor/conf.d/
