@@ -5,6 +5,7 @@ services:
     volumes:
       - ./service-config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./service-config/nginx/sites:/etc/nginx/conf.d:ro
+      - ./.env:/var/www/sgrm/.env:ro
     ports:
       - "80:80"
   mysql:
