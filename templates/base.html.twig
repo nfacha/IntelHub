@@ -13,17 +13,19 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>
 </head>
 <body>
-
+<script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
 <div class="flex">
-    {% if app.environment != 'prod' %}
-        <div class="fixed top-0 h-6 bg-red-400 w-screen z-10 mb-10 text-center text-white font-bold">
-        <span>
-            You are currently running on {{ app.environment }} environment! - NOT FOR PRODUCTION USE
-        </span>
-        </div>
-    {% endif %}
+{#    {% if app.environment != 'prod' %}#}
+{#        <div class="fixed top-0 h-6 bg-red-400 w-screen z-10 mb-10 text-center text-white font-bold">#}
+{#        <span>#}
+{#            You are currently running on {{ app.environment }} environment! - NOT FOR PRODUCTION USE#}
+{#        </span>#}
+{#        </div>#}
+{#    {% endif %}#}
     <div class="bg-blue-500 h-screen p-5 pt-14 w-2/12 relative">
         {#        <i class="gg-arrow-left-r bg-white text-black text-3xl rounded-full absolute -right-3 top-9 border border-black cursor-pointer"></i> #}
         <div class="inline-flex items-center content-center w-full">
@@ -64,5 +66,6 @@
     {% block body %}{% endblock %}
 
 </div>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>
 </body>
 </html>

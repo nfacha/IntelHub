@@ -5,45 +5,14 @@
 {% block body %}
     <h1>Ingestor index</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Pull_ip</th>
-            <th>Pull_port</th>
-            <th>Push_port</th>
-            <th>Source_type</th>
-            <th>Active</th>
-            <th>Pending_command</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for ingestor in ingestors %}
-            <tr>
-                <td>{{ ingestor.id }}</td>
-                <td>{{ ingestor.name }}</td>
-                <td>{{ ingestor.type }}</td>
-                <td>{{ ingestor.pullIp }}</td>
-                <td>{{ ingestor.pullPort }}</td>
-                <td>{{ ingestor.pushPort }}</td>
-                <td>{{ ingestor.sourceType }}</td>
-                <td>{{ ingestor.active }}</td>
-                <td>{{ ingestor.pendingCommand }}</td>
-                <td>
-                    <a href="{{ path('app_ingestor_show', {'id': ingestor.id}) }}">show</a>
-                    <a href="{{ path('app_ingestor_edit', {'id': ingestor.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div id="ingestors">Loading...</div>
 
+    <script>
+        setTimeout(() => {
+            $(function() {
+                $('#ingestors').initDataTables({{ datatable_settings(datatable) }});
+            });
+        }, 1000);
+    </script>
     <a href="{{ path('app_ingestor_new') }}">Create new</a>
 {% endblock %}

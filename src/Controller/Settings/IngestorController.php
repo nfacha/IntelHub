@@ -3,8 +3,11 @@
 namespace App\Controller\Settings;
 
 use App\Entity\Ingestor;
-use App\Form\IngestorType;
+use App\Form\Settings\IngestorType;
 use App\Repository\IngestorRepository;
+use Omines\DataTablesBundle\Adapter\ArrayAdapter;
+use Omines\DataTablesBundle\Column\TextColumn;
+use Omines\DataTablesBundle\DataTableFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +18,25 @@ use Symfony\Component\Routing\Annotation\Route;
 #[IsGranted( 'ROLE_ADMIN' )]
 class IngestorController extends AbstractController {
 	#[Route( '/', name: 'app_ingestor_index', methods: [ 'GET' ] )]
-	public function index( IngestorRepository $ingestorRepository ): Response {
+	public function index( IngestorRepository $ingestorRepository, DataTableFactory $dtf, Request $request ): Response {
+
+		$table = $dtf->create()
+			->add( 'id', TextColumn::class, [ 'label' => 'ID', 'className' => 'text-center' ] )
+			->add( 'name', TextColumn::class, [ 'label' => 'Name', 'className' => 'text-center' ] )
+			->add( 'type', TextColumn::class, [ 'label' => 'Type', 'className' => 'text-center' ] )
+			->add( 'pull_ip', TextColumn::class, [ 'label' => 'Pull IP', 'className' => 'text-center' ] )
+			->add( 'pull_port', TextColumn::class, [ 'label' => 'Pull Port', 'className' => 'text-center' ] )
+			->add( 'push_port', TextColumn::class, [ 'label' => 'Push Port', 'className' => 'text-center' ] )
+			->add( 'source_type', TextColumn::class, [ 'label' => 'Source Type', 'className' => 'text-center' ] )
+			->createAdapter( ArrayAdapter::class, [] )
+			->handleRequest( $request );
+
+		if($table->isCallback()){
+			return $table->getResponse();
+		}
+
 		return $this->render( 'ingestor/index.html.twig', [
-			'ingestors' => $ingestorRepository->findAll(),
+			'datatable' => $table,
 		] );
 	}
 
