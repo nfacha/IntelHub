@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Settings;
+namespace App\Form;
 
 use App\Entity\Ingestor;
 use Symfony\Component\Form\AbstractType;
