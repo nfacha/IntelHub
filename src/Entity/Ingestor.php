@@ -22,24 +22,28 @@ class Ingestor
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pull_ip = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pull_port = null;
+	#[ORM\Column( length: 255, nullable: true )]
+	private ?string $pull_port = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $push_port = null;
+	#[ORM\Column( length: 255, nullable: true )]
+	private ?string $push_port = null;
 
-    #[ORM\Column]
-    private ?int $source_type = null;
+	#[ORM\Column]
+	private ?int $source_type = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+	#[ORM\Column]
+	private ?int $active = null;
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
+	#[ORM\Column( length: 255, nullable: true )]
+	private ?string $pending_command = null;
+
+	public function getId(): ?int {
+		return $this->id;
+	}
+
+	public function getName(): ?string {
+		return $this->name;
+	}
 
     public function setName(string $name): self
     {
@@ -96,15 +100,33 @@ class Ingestor
         return $this;
     }
 
-    public function getSourceType(): ?int
-    {
-        return $this->source_type;
-    }
+	public function getSourceType(): ?int {
+		return $this->source_type;
+	}
 
-    public function setSourceType(int $source_type): self
-    {
-        $this->source_type = $source_type;
+	public function setSourceType( int $source_type ): self {
+		$this->source_type = $source_type;
 
-        return $this;
-    }
+		return $this;
+	}
+
+	public function getActive(): ?int {
+		return $this->active;
+	}
+
+	public function setActive( int $active ): self {
+		$this->active = $active;
+
+		return $this;
+	}
+
+	public function getPendingCommand(): ?string {
+		return $this->pending_command;
+	}
+
+	public function setPendingCommand( ?string $pending_command ): self {
+		$this->pending_command = $pending_command;
+
+		return $this;
+	}
 }
