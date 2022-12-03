@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ingestor{% endblock %}
+
+{% block body %}
+    <h1>Ingestor</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ ingestor.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ ingestor.name }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ ingestor.type }}</td>
+        </tr>
+        <tr>
+            <th>Pull_ip</th>
+            <td>{{ ingestor.pullIp }}</td>
+        </tr>
+        <tr>
+            <th>Pull_port</th>
+            <td>{{ ingestor.pullPort }}</td>
+        </tr>
+        <tr>
+            <th>Push_port</th>
+            <td>{{ ingestor.pushPort }}</td>
+        </tr>
+        <tr>
+            <th>Source_type</th>
+            <td>{{ ingestor.sourceType }}</td>
+        </tr>
+        <tr>
+            <th>Active</th>
+            <td>{{ ingestor.active }}</td>
+        </tr>
+        <tr>
+            <th>Pending_command</th>
+            <td>{{ ingestor.pendingCommand }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ingestor_index') }}">back to list</a>
+
+    <a href="{{ path('app_ingestor_edit', {'id': ingestor.id}) }}">edit</a>
+
+    {{ include('ingestor/_delete_form.html.twig') }}
+{% endblock %}
