@@ -3,47 +3,37 @@
 {% block title %}Ingestor index{% endblock %}
 
 {% block body %}
-    <h1>Ingestor index</h1>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Pull_ip</th>
-            <th>Pull_port</th>
-            <th>Push_port</th>
-            <th>Source_type</th>
-            <th>Active</th>
-            <th>Pending_command</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for ingestor in ingestors %}
+    <div class="p-7 w-screen">
+        <h1 class="font-bold text-2xl">Ingestor Settings</h1>
+        <p>Ingestors are the datasources that provide information to IntelHub</p>
+        <table class="w-full text-sm text-left mt-5">
+            <thead class="text-xs text-gray-700 uppercase bg-[#DAFFEC]">
             <tr>
-                <td>{{ ingestor.id }}</td>
-                <td>{{ ingestor.name }}</td>
-                <td>{{ ingestor.type }}</td>
-                <td>{{ ingestor.pullIp }}</td>
-                <td>{{ ingestor.pullPort }}</td>
-                <td>{{ ingestor.pushPort }}</td>
-                <td>{{ ingestor.sourceType }}</td>
-                <td>{{ ingestor.active }}</td>
-                <td>{{ ingestor.pendingCommand }}</td>
-                <td>
-                    <a href="{{ path('app_ingestor_show', {'id': ingestor.id}) }}">show</a>
-                    <a href="{{ path('app_ingestor_edit', {'id': ingestor.id}) }}">edit</a>
-                </td>
+                {% for header in col %}
+                    <th class="py-4 px-6"> {{ header }} </th>
+                {% endfor %}
+                <th class="py-3 px-6"></th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
 
-    <a href="{{ path('app_ingestor_new') }}">Create new</a>
+            {% for ingestor in ingestors %}
+                <tr class=" border-b hover:bg-gray-50">
+                    <td class="py-4 px-6"> {{ ingestor.name }} </td>
+                    <td class="py-4 px-6"> {{ ingestor.type }} </td>
+                    <td class="py-4 px-6"> {{ ingestor.sourceType }} </td>
+                    <td class="py-4 px-6"> {{ ingestor.active }} </td>
+                    <td class="py-4 px-6">
+                        {#                        <a href="" class="font-medium text-blue-600 hover:underline">See</a> #}
+                        <a href="{{ path('app_ingestor_edit', {'id': ingestor.id}) }}"
+                           class="font-medium text-blue-600 hover:underline">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_ingestor_new') }}">Create new</a>
+    </div>
+
 {% endblock %}

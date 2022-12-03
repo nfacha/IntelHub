@@ -16,8 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class IngestorController extends AbstractController {
 	#[Route( '/', name: 'app_ingestor_index', methods: [ 'GET' ] )]
 	public function index( IngestorRepository $ingestorRepository ): Response {
+
+		$col = [ 'name', 'type', 'source_type', 'active' ];
+
 		return $this->render( 'ingestor/index.html.twig', [
 			'ingestors' => $ingestorRepository->findAll(),
+			'col'       => $col,
 		] );
 	}
 
