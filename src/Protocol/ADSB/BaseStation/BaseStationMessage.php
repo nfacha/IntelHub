@@ -28,12 +28,24 @@ class BaseStationMessage {
 	private $aircraft;
 
 	public function __construct( string $raw, AircraftRepository $aircraftRepository, AircraftPositionRepository $aircraftPositionRepository ) {
+		if ( ! BaseStationUtils::isAdsbMessage( $raw ) ) {
+			return;
+		}
+		if ( BaseStationDecoder::getMessageType( $raw ) !== 'MSG' ) {
+			return;
+		}
 		$this->aircraftRepository         = $aircraftRepository;
 		$this->aircraftPositionRepository = $aircraftPositionRepository;
 
 		$this->raw  = $raw;
 		$this->icao = BaseStationDecoder::getIcao( $raw );
 		if ( $this->icao === null ) {
+			return;
+		}
+		if ( $this->icao === '' ) {
+			return;
+		}
+		if ( $this->icao === '0' ) {
 			return;
 		}
 		$this->transmissionMessageType = BaseStationDecoder::getTransmissionMessageType( $raw );
@@ -48,7 +60,7 @@ class BaseStationMessage {
 		$this->onGround                = BaseStationDecoder::getOnGround( $raw );
 
 		$this->aircraft = $this->saveAircraft();
-//		$this->saveAircraftPosition($this->aircraft);
+		$this->saveAircraftPosition( $this->aircraft );
 
 	}
 
