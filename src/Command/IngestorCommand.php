@@ -5,6 +5,8 @@ namespace App\Command;
 use App\Enum\MessageProtocol;
 use App\Enum\SourceType;
 use App\Protocol\ADSB\BaseStation\BaseStationMessage;
+use App\Repository\AircraftPositionRepository;
+use App\Repository\AircraftRepository;
 use App\Repository\IngestorRepository;
 use React\Socket\SocketServer;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -21,10 +23,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 class IngestorCommand extends Command {
 	private $ingestorId;
 	private $ingestorRepository;
+	private $aircraftRepository;
+	private $aircraftPositionRepository;
 
-	public function __construct( IngestorRepository $ingestorRepository ) {
+	public function __construct( IngestorRepository $ingestorRepository, AircraftRepository $aircraftRepository, AircraftPositionRepository $aircraftPositionRepository ) {
 		parent::__construct( 'Intel Ingest' );
-		$this->ingestorRepository = $ingestorRepository;
+		$this->ingestorRepository         = $ingestorRepository;
+		$this->aircraftRepository         = $aircraftRepository;
+		$this->aircraftPositionRepository = $aircraftPositionRepository;
 
 	}
 
@@ -77,7 +83,7 @@ class IngestorCommand extends Command {
 //				$output->writeln( 'Data received: ' . $data );
 				switch ( $protocol ) {
 					case MessageProtocol::ADSB_BASESTATION:
-						$msg = new BaseStationMessage( $data );
+						$msg = new BaseStationMessage( $data, $this->aircraftRepository, $this->aircraftPositionRepository );
 						$output->writeln( $msg->getDescription() );
 						break;
 				}

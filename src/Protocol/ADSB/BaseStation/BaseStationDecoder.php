@@ -89,7 +89,7 @@ class BaseStationDecoder {
 
 	public static function getVerticalRate( string $msg ) {
 		try {
-			return BaseStationUtils::parseMsg( $msg )[16];
+			return (int) BaseStationUtils::parseMsg( $msg )[16];
 
 		} catch ( Exception $e ) {
 			return null;
