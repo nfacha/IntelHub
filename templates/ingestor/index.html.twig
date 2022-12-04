@@ -3,7 +3,7 @@
 {% block title %}Ingestor index{% endblock %}
 
 {% block body %}
-    <div class="p-7 w-screen">
+    <div class="p-7 w-screen h-screen">
         <h1 class="font-bold text-2xl">Ingestor Settings</h1>
         <p>Ingestors are the datasources that provide information to IntelHub</p>
         <table class="w-full text-sm text-left mt-5">
@@ -32,8 +32,8 @@
             {% endfor %}
             </tbody>
         </table>
-
-        <a href="{{ path('app_ingestor_new') }}">Create new</a>
+        <br>
+        <a href="{{ path('app_ingestor_new') }}" class="mt-10 btn text-white p-2 bg-green-500 rounded">Create new</a>
     </div>
 
 {% endblock %}
