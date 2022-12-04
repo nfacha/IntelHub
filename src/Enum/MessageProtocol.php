@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-class SourceFeedType {
+class MessageProtocol {
 	const ADSB_BASESTATION = 1;
 
 	public static function getChoices(): array {

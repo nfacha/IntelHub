@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Enum\SourceFeedType;
+use App\Enum\MessageProtocol;
 use App\Enum\SourceType;
 use App\Repository\IngestorRepository;
 use React\Socket\SocketServer;
@@ -58,7 +58,7 @@ class IngestorCommand extends Command {
 			case SourceType::PUSH_SOURCE:
 				$output->writeln( 'Push Source' );
 				//Data is feed INTO intel hub, so we need to spin up our socket
-				$this->initSocket( (int) $ingestor->getPushPort(), SourceFeedType::ADSB_BASESTATION, $output );
+				$this->initSocket( (int) $ingestor->getPushPort(), MessageProtocol::ADSB_BASESTATION, $output );
 				break;
 		}
 

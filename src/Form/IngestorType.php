@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Ingestor;
 use App\Enum\BooleanType;
-use App\Enum\SourceFeedType;
+use App\Enum\MessageProtocol;
 use App\Enum\SourceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -22,7 +22,7 @@ class IngestorType extends AbstractType {
 			] )
 			->add( 'type', ChoiceType::class, [
 				'label'   => false,
-				'choices' => SourceFeedType::getChoices(),
+				'choices' => MessageProtocol::getChoices(),
 			] )
 			->add( 'pull_ip' )
 			->add( 'pull_port' )
