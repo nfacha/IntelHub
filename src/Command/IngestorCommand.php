@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Enum\MessageProtocol;
 use App\Enum\SourceType;
+use App\Protocol\ADSB\BaseStation\BaseStationMessage;
 use App\Repository\IngestorRepository;
 use React\Socket\SocketServer;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -73,7 +74,13 @@ class IngestorCommand extends Command {
 		$socket->on( 'connection', function ( $conn ) use ( $protocol, $output ) {
 			$conn->on( 'data', function ( $data ) use ( $output, $conn, $protocol ) {
 //				$protocol->processData($data);
-				$output->writeln( 'Data received: ' . $data );
+//				$output->writeln( 'Data received: ' . $data );
+				switch ( $protocol ) {
+					case MessageProtocol::ADSB_BASESTATION:
+						$msg = new BaseStationMessage( $data );
+						$output->writeln( $msg->getDescription() );
+						break;
+				}
 			} );
 		} );
 	}
