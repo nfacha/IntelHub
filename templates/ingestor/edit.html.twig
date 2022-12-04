@@ -3,11 +3,12 @@
 {% block title %}Edit Ingestor{% endblock %}
 
 {% block body %}
-    <h1>Edit Ingestor</h1>
+    <div class="p-7 w-screen h-screen">
+        <h1 class="font-bold text-2xl">Edit Ingestor</h1>
+        {{ include('ingestor/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {{ include('ingestor/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_ingestor_index') }}">back to list</a>
+        {{ include('ingestor/_delete_form.html.twig') }}
+    </div>
 
-    {{ include('ingestor/_delete_form.html.twig') }}
 {% endblock %}
