@@ -1,4 +1,16 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="flex h-screen mt-5 justify-center">
+    {{ form_start(form,{'attr': {'class': 'w-screen'}}) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name, {'attr': {'class': 'rounded w-10/12'}}) }}
+    {{ form_row(form.type, {'attr': {'class': 'rounded w-10/12'}}) }}
+    {{ form_row(form.source_type, {'attr': {'class': 'rounded w-10/12'}}) }}
+    {{ form_row(form.pull_ip, {'attr': {'class': 'rounded w-10/12'}}) }}
+    {{ form_row(form.pull_port, {'attr': {'class': 'rounded w-10/12'}}) }}
+    {{ form_row(form.push_port, {'attr': {'class': 'rounded w-10/12'}}) }}
+    {{ form_row(form.active, {'attr': {'class': 'rounded w-10/12'}}) }}
+    {{ form_row(form.pending_command, {'attr': {'class': 'rounded w-10/12'}}) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+</div>

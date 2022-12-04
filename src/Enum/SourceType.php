@@ -8,8 +8,8 @@ class SourceType {
 
 	public static function getChoices(): array {
 		return [
-			self::PUSH_SOURCE => 'Push Source',
-			self::PULL_SOURCE => 'Pull Source',
+			'Push Source' => self::PUSH_SOURCE,
+			'Pull Source' => self::PULL_SOURCE,
 		];
 	}
 
