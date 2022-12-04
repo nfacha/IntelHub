@@ -10,6 +10,7 @@ services:
       - ./service-config/nginx/sites:/etc/nginx/conf.d:ro
     ports:
       - "80:80"
+      - "5000-5100:5000-5100"
   mysql:
     image: mysql:8.0
     environment:

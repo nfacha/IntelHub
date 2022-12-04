@@ -2,8 +2,10 @@
 
 namespace App\Command;
 
+use App\Enum\SourceFeedType;
 use App\Enum\SourceType;
 use App\Repository\IngestorRepository;
+use React\Socket\SocketServer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -55,10 +57,24 @@ class IngestorCommand extends Command {
 				break;
 			case SourceType::PUSH_SOURCE:
 				$output->writeln( 'Push Source' );
+				//Data is feed INTO intel hub, so we need to spin up our socket
+				$this->initSocket( (int) $ingestor->getPushPort(), SourceFeedType::ADSB_BASESTATION, $output );
 				break;
 		}
 
 
 		return Command::SUCCESS;
+	}
+
+	private function initSocket( int $port, int $protocol, OutputInterface $output ) {
+		$output->writeln( 'Starting socket on port ' . $port );
+		$socket = new SocketServer( '0.0.0.0:' . $port );
+
+		$socket->on( 'connection', function ( $conn ) use ( $protocol, $output ) {
+			$conn->on( 'data', function ( $data ) use ( $output, $conn, $protocol ) {
+//				$protocol->processData($data);
+				$output->writeln( 'Data received: ' . $data );
+			} );
+		} );
 	}
 }
