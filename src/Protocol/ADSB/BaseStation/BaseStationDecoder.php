@@ -71,7 +71,9 @@ class BaseStationDecoder {
 
 	public static function getLatitude( string $msg ) {
 		try {
-			return BaseStationUtils::parseMsg( $msg )[14];
+			$lat = BaseStationUtils::parseMsg( $msg )[14];
+
+			return $lat !== '' ? $lat : null;
 
 		} catch ( Exception $e ) {
 			return null;
@@ -80,7 +82,9 @@ class BaseStationDecoder {
 
 	public static function getLongitude( string $msg ) {
 		try {
-			return BaseStationUtils::parseMsg( $msg )[15];
+			$lon = BaseStationUtils::parseMsg( $msg )[15];
+
+			return $lon !== '' ? $lon : null;
 
 		} catch ( Exception $e ) {
 			return null;
