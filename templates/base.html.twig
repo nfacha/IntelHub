@@ -17,6 +17,13 @@
 <body class="bg-gray-200">
 <div class="flex">
     <div class="w-1/6 h-screen px-4 py-6 bg-blue-500">
+        <a href="/">
+            <div class="mb-6">
+                <p class="text-white text-center font-bold text-4xl">IntelHub</p>
+                <hr class="m-4">
+            </div>
+        </a>
+
         {% if app.user %}
             <div class="mb-6">
                 <img
@@ -25,10 +32,19 @@
                         class="rounded-full h-12 w-12 mx-auto"
                 />
                 <p class="text-white text-center mt-2 font-semibold">Username</p>
-                <p class="text-center text-red-600 mt-2 text-s font-bold">Logout</p>
+                <a href="{{ path('app_logout') }}">
+                    <p class="text-center bg-red-600 text-white mt-2 text-s font-bold">Logout</p>
+                </a>
+                <hr class="m-4">
             </div>
+        {% else %}
+            <a href="{{ path('app_login') }}">
+                <p class="text-center bg-green-600 text-white mt-2 text-s font-bold">Login</p>
+            </a>
+            <hr class="m-4">
+
         {% endif %}
-        <nav>
+        <nav class="ml-4">
             <ul>
                 <li class="mb-2">
                     <a href="#" class="text-white font-semibold block menu-link">Menu 1</a>
@@ -44,13 +60,7 @@
         </nav>
     </div>
     <div class="w-4/5 h-screen px-4 py-6">
-        <h1 class="text-2xl font-semibold mb-4">Main Content</h1>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-        </p>
+        {% block body %}{% endblock %}
     </div>
 </div>
 </body>

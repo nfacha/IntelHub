@@ -6,3 +6,48 @@
 body {
     background-color: lightgray;
 }
+
+/*Colapse menu on mobile*/
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background-color: #007bff;
+        z-index: 2;
+    }
+
+    .mobile-menu.open {
+        display: flex;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .mobile-menu-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+    }
+
+    .mobile-menu-item:hover {
+        background-color: rgba(0, 123, 255, 0.1);
+    }
+
+    .mobile-menu-item-icon {
+        margin-right: 0.5rem;
+    }
+
+    .mobile-menu-item-text {
+        display: none;
+    }
+}

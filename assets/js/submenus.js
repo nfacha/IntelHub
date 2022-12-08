@@ -20,3 +20,19 @@ menuLinks.forEach((menuLink) => {
         }
     });
 });
+
+// // Get the mobile menu toggle button
+// const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+//
+// // Add a click event listener to the mobile menu toggle button
+// mobileMenuToggle.addEventListener('click', () => {
+//     // Get the mobile menu
+//     const mobileMenu = document.querySelector('.mobile-menu');
+//
+//     // If the mobile menu is already open, close it
+//     if (mobileMenu.classList.contains('open')) {
+//         mobileMenu.classList.remove('open');
+//     } else { // Otherwise, open the mobile menu
+//         mobileMenu.classList.add('open');
+//     }
+// });
