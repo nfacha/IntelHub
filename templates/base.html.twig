@@ -14,55 +14,44 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body>
-
+<body class="bg-gray-200">
 <div class="flex">
-    {#    {% if app.environment != 'prod' %} #}
-    {#        <div class="fixed top-0 h-6 bg-red-400 w-screen z-10 mb-10 text-center text-white font-bold"> #}
-    {#        <span> #}
-    {#            You are currently running on {{ app.environment }} environment! - NOT FOR PRODUCTION USE #}
-    {#        </span> #}
-    {#        </div> #}
-    {#    {% endif %} #}
-    <div class="bg-blue-500 h-screen p-5 pt-14 w-2/12 relative">
-        {#        <i class="gg-arrow-left-r bg-white text-black text-3xl rounded-full absolute -right-3 top-9 border border-black cursor-pointer"></i> #}
-        <div class="inline-flex items-center content-center w-full">
-            <i class="gg-pin bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-3 ml-3"></i>
-            <h1 class="text-white origin-left font-medium text-2xl ml-8">IntelHub</h1>
-        </div>
-        <ul class="pt-10">
-            <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                <i class="gg-home mr-3"></i>
-                <a href="">Home</a>
-            </li>
-            {% if not app.user %}
-                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                    <i class="gg-lock mr-3"></i>
-                    <a href="{{ path('app_login') }}">Login</a>
+    <div class="w-1/6 h-screen px-4 py-6 bg-blue-500">
+        {% if app.user %}
+            <div class="mb-6">
+                <img
+                        src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+                        alt="User Avatar"
+                        class="rounded-full h-12 w-12 mx-auto"
+                />
+                <p class="text-white text-center mt-2 font-semibold">Username</p>
+                <p class="text-center text-red-600 mt-2 text-s font-bold">Logout</p>
+            </div>
+        {% endif %}
+        <nav>
+            <ul>
+                <li class="mb-2">
+                    <a href="#" class="text-white font-semibold block menu-link">Menu 1</a>
+                    <ul class="hidden">
+                        <li class="mb-1"><a href="#" class="text-white block">Submenu 1</a></li>
+                        <li class="mb-1"><a href="#" class="text-white block">Submenu 2</a></li>
+                        <li class="mb-1"><a href="#" class="text-white block">Submenu 3</a></li>
+                    </ul>
                 </li>
-                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                    <i class="gg-user-add mr-3"></i>
-                    <a href="{{ path('app_register') }}">Register</a>
-                </li>
-            {% else %}
-                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                    <i class="gg-software-download mr-3"></i>
-                    <a href="{{ path('app_ingestor_index') }}">Ingestors</a>
-
-                </li>
-
-
-                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                    <i class="gg-user-remove mr-3"></i>
-                    <a href="{{ path('app_logout') }}">Logout</a>
-                </li>
-            {% endif %}
-
-
-        </ul>
+                <li class="mb-2"><a href="#" class="text-white font-semibold block">Menu 2</a></li>
+                <li class="mb-2"><a href="#" class="text-white font-semibold block">Menu 3</a></li>
+            </ul>
+        </nav>
     </div>
-    {% block body %}{% endblock %}
-
+    <div class="w-4/5 h-screen px-4 py-6">
+        <h1 class="text-2xl font-semibold mb-4">Main Content</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+        </p>
+    </div>
 </div>
 </body>
 </html>
