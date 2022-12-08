@@ -13,4 +13,11 @@ class SourceType {
 		];
 	}
 
+	public static function getLabel(): array {
+		return [
+			self::PUSH_SOURCE => 'Push Source',
+			self::PULL_SOURCE => 'Pull Source',
+		];
+	}
+
 }

@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Enum\MessageProtocol;
+use App\Enum\SourceType;
 use App\Repository\IngestorRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity( repositoryClass: IngestorRepository::class )]
@@ -43,7 +46,7 @@ class Ingestor {
 	private ?int $total_processed_messages = null;
 
 	#[ORM\Column( nullable: true )]
-	private ?\DateTimeImmutable $last_message_at = null;
+	private ?DateTimeImmutable $last_message_at = null;
 
 	public function getId(): ?int {
 		return $this->id;
@@ -149,13 +152,21 @@ class Ingestor {
 		return $this;
 	}
 
-	public function getLastMessageAt(): ?\DateTimeImmutable {
+	public function getLastMessageAt(): ?DateTimeImmutable {
 		return $this->last_message_at;
 	}
 
-	public function setLastMessageAt( ?\DateTimeImmutable $last_message_at ): self {
+	public function setLastMessageAt( ?DateTimeImmutable $last_message_at ): self {
 		$this->last_message_at = $last_message_at;
 
 		return $this;
+	}
+
+	public function getTypeLabel() {
+		return MessageProtocol::getLabel()[ $this->type ];
+	}
+
+	public function getSourceTypeLabel() {
+		return SourceType::getLabel()[ $this->source_type ];
 	}
 }

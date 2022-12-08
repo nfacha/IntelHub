@@ -11,4 +11,10 @@ class MessageProtocol {
 		];
 	}
 
+	public static function getLabel(): array {
+		return [
+			self::ADSB_BASESTATION => 'ADSB BaseStation',
+		];
+	}
+
 }
