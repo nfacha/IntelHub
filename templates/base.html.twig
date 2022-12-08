@@ -1,68 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="icon"
-          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
-
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-    {% endblock %}
+    <title>IntelHub</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-
-<div class="flex">
-    {#    {% if app.environment != 'prod' %} #}
-    {#        <div class="fixed top-0 h-6 bg-red-400 w-screen z-10 mb-10 text-center text-white font-bold"> #}
-    {#        <span> #}
-    {#            You are currently running on {{ app.environment }} environment! - NOT FOR PRODUCTION USE #}
-    {#        </span> #}
-    {#        </div> #}
-    {#    {% endif %} #}
-    <div class="bg-blue-500 h-screen p-5 pt-14 w-2/12 relative">
-        {#        <i class="gg-arrow-left-r bg-white text-black text-3xl rounded-full absolute -right-3 top-9 border border-black cursor-pointer"></i> #}
-        <div class="inline-flex items-center content-center w-full">
-            <i class="gg-pin bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-3 ml-3"></i>
-            <h1 class="text-white origin-left font-medium text-2xl ml-8">IntelHub</h1>
-        </div>
-        <ul class="pt-10">
-            <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                <i class="gg-home mr-3"></i>
-                <a href="">Home</a>
+<div class="flex h-screen">
+    <div class="w-1/12 px-4 py-2 bg-blue-500">
+        <h1 class="text-white font-bold text-2xl text-center">IntelHub</h1>
+        <ul class="mt-4">
+            <li class="text-white mb-2">
+                <a href="{{ path('index') }}"><i class="fas fa-home mr-2"></i> Home</a>
             </li>
-            {% if not app.user %}
-                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                    <i class="gg-lock mr-3"></i>
-                    <a href="{{ path('app_login') }}">Login</a>
+            {% if app.user %}
+                <li class="text-white mb-2">
+                    <i class="fas fa-envelope mr-2"></i> Settings
+                    <ul class="mt-2 pl-1">
+                        <li class="text-white mb-2">
+                            <i class="fas fa-inbox mr-2"></i> Ingestors
+                        </li>
+                    </ul>
                 </li>
-                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                    <i class="gg-user-add mr-3"></i>
-                    <a href="{{ path('app_register') }}">Register</a>
+
+
+
+                <li class="text-white mb-2">
+                    <a href="{{ path('app_logout') }}"><i class="fas fa-home mr-2"></i> Logout</a>
                 </li>
+
             {% else %}
-                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                    <i class="gg-software-download mr-3"></i>
-                    <a href="{{ path('app_ingestor_index') }}">Ingestors</a>
-
-                </li>
-
-
-                <li class="text-white text-xl font-medium mt-5 flex text-center items-center content-center w-full">
-                    <i class="gg-user-remove mr-3"></i>
-                    <a href="{{ path('app_logout') }}">Logout</a>
+                <li class="text-white mb-2">
+                    <a href="{{ path('app_login') }}"><i class="fas fa-home mr-2"></i> Login</a>
                 </li>
             {% endif %}
-
-
         </ul>
     </div>
-    {% block body %}{% endblock %}
-
+    <div class="w-11/12">
+        <div class="flex justify-between items-center bg-blue-500">
+            <div class="text-white font-bold">{{ app.user.username | default('Guest') }}</div>
+            {% if app.user %}
+                <img src="https://picsum.photos/200/300" alt="user avatar" class="w-8 h-8 rounded-full">
+            {% endif %}
+        </div>
+        <div class="mt-4">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
 </div>
 </body>
 </html>
