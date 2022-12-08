@@ -8,6 +8,14 @@ services:
       - ./.env:/var/www/intelhub/.env:ro
     ports:
       - "80:80"
+  worker:
+    image: "registry.facha.dev/facha/intelhub:latest"
+    volumes:
+      - ./service-config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./service-config/nginx/sites:/etc/nginx/conf.d:ro
+      - ./.env:/var/www/intelhub/.env:ro
+      - ./service-config/supervisor/supervisord-worker.conf:/etc/supervisor/conf.d/supervisord.conf:ro
+    ports:
       - "5000-5100:5000-5100"
   mysql:
     image: mysql:8.0
