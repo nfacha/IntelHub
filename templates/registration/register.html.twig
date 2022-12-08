@@ -1,36 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
-{% block body %}
-    <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="w-full max-w-md space-y-8">
-            <div>
-                {#                <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company"> #}
-                <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign-up to IntelHub</h2>
-                </p>
-            </div>
-            <form class="mt-8 space-y-6" method="POST">
-                {{ form_start(registrationForm) }}
-                {% for flash_error in app.flashes('verify_email_error') %}
-                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-                {% endfor %}
-                <div class="-space-y-px rounded-md shadow-sm">
-                    {{ form_row(registrationForm.username, {'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
-                    {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
-                    {{ form_row(registrationForm.email, {'attr': {'class': 'relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'}}) }}
-                    {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'ml-3 mt-2'}}) }}
-                </div>
 
-                <div>
-                    <button type="submit"
-                            class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    <div class="h-screen w-10/12 overflow-hidden flex ">
+        <div class="m-auto w-8/12">
+            <div class="p-3 w-10/12 rounded overflow-hidden shadow-lg bg-gray-100 text-center block">
+                <div class="font-bold text-xl mb-2 h1">IntelHub Registration</div>
+                <form method="post">
+                    {{ form_start(registrationForm) }}
+                    <div class="mt-5 mb-5 text-center">
+                        <div class="w-10/12 mt-3 mb-3 m-auto">
+                            {{ form_row(registrationForm.username, {'attr': {'class': 'form-control w-full rounded'}}) }}
+                        </div>
+                        <div class="w-10/12 mt-3 mb-3 m-auto">
+                            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control w-full rounded'}}) }}
+                        </div>
+                        <div class="w-10/12 mt-3 mb-3 m-auto">
+                            {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control w-full rounded'}}) }}
+                        </div>
+                        <div class="w-10/12 mt-3 mb-3 m-auto">
+                            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-control w-full rounded'}}) }}
+                        </div>
+                    </div>
+
+                    <button class="btn btn-lg bg-green-500 text-white p-2 w-2/12 rounded font-bold mt-5" type="submit">
                         Register
                     </button>
-                </div>
-                {{ form_end(registrationForm) }}
-            </form>
+                    {{ form_end(registrationForm) }}
+
+
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
-
-
