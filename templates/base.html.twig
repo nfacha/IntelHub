@@ -46,16 +46,25 @@
         {% endif %}
         <nav class="ml-4">
             <ul>
-                <li class="mb-2">
-                    <a href="#" class="text-white font-semibold block menu-link">Menu 1</a>
-                    <ul class="hidden">
-                        <li class="mb-1"><a href="#" class="text-white block">Submenu 1</a></li>
-                        <li class="mb-1"><a href="#" class="text-white block">Submenu 2</a></li>
-                        <li class="mb-1"><a href="#" class="text-white block">Submenu 3</a></li>
-                    </ul>
-                </li>
-                <li class="mb-2"><a href="#" class="text-white font-semibold block">Menu 2</a></li>
-                <li class="mb-2"><a href="#" class="text-white font-semibold block">Menu 3</a></li>
+                {#                <li class="mb-2"> #}
+                {#                    <a href="#" class="text-white font-semibold block menu-link">Menu 1</a> #}
+                {#                    <ul class="hidden"> #}
+                {#                        <li class="mb-1"><a href="#" class="text-white block">Submenu 1</a></li> #}
+                {#                        <li class="mb-1"><a href="#" class="text-white block">Submenu 2</a></li> #}
+                {#                        <li class="mb-1"><a href="#" class="text-white block">Submenu 3</a></li> #}
+                {#                    </ul> #}
+                {#                </li> #}
+                <li class="mb-2"><a href="/" class="text-white font-semibold block">Home</a></li>
+                {% if is_granted('ROLE_ADMIN', app.user) %}
+                    <li class="mb-2">
+                        <a href="#"
+                           class="text-white font-semibold block menu-link {{ '/settings/' in app.request.pathInfo ? 'open': '' }}">Settings</a>
+                        <ul class="{{ '/settings/' not in app.request.pathInfo ? 'hidden': '' }}">
+                            <li class="mb-1 ml-1"><a href="{{ path('app_ingestor_index') }}"
+                                                     class="text-white block">Ingestors</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
             </ul>
         </nav>
     </div>
