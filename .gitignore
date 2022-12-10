@@ -29,3 +29,7 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+service-config/pg/pg.env
+
+service-config/pgadmin/pgadmin.env

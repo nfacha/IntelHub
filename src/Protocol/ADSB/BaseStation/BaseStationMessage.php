@@ -49,20 +49,20 @@ class BaseStationMessage {
 			return;
 		}
 		$this->transmissionMessageType = BaseStationDecoder::getTransmissionMessageType( $raw );
-		$this->callsign                = BaseStationDecoder::getCallsign( $raw );
-		$this->altitude                = BaseStationDecoder::getAltitude( $raw );
-		$this->groundSpeed             = BaseStationDecoder::getGroundSpeed( $raw );
-		$this->track                   = BaseStationDecoder::getTrack( $raw );
-		$this->latitude                = BaseStationDecoder::getLatitude( $raw );
-		$this->longitude               = BaseStationDecoder::getLongitude( $raw );
-		$this->verticalRate            = BaseStationDecoder::getVerticalRate( $raw );
-		$this->squawk                  = BaseStationDecoder::getSquawk( $raw );
-		$this->onGround                = BaseStationDecoder::getOnGround( $raw );
+        $this->callsign = BaseStationDecoder::getCallsign($raw);
+        $this->altitude = BaseStationDecoder::getAltitude($raw);
+        $this->groundSpeed = BaseStationDecoder::getGroundSpeed($raw);
+        $this->track = BaseStationDecoder::getTrack($raw);
+        $this->latitude = BaseStationDecoder::getLatitude($raw);
+        $this->longitude = BaseStationDecoder::getLongitude($raw);
+        $this->verticalRate = BaseStationDecoder::getVerticalRate($raw);
+        $this->squawk = BaseStationDecoder::getSquawk($raw);
+        $this->onGround = BaseStationDecoder::getOnGround($raw);
 
-		$this->aircraft = $this->saveAircraft();
-		$this->saveAircraftPosition( $this->aircraft );
+        $this->saveAircraft();
+        $this->saveAircraftPosition();
 
-	}
+    }
 
 	public function getDescription(): string {
 		//DEBUG
@@ -81,17 +81,18 @@ class BaseStationMessage {
 		return $aircraft;
 	}
 
-	private function saveAircraftPosition( Aircraft $aircraft ): void {
-		$aircraftPosition = new AircraftPosition();
-		$aircraftPosition->setAircraft( $aircraft );
-		$aircraftPosition->setPositionAt( new DateTimeImmutable() );
-		$aircraftPosition->setLatitude( $this->latitude );
-		$aircraftPosition->setLongitude( $this->longitude );
-		$aircraftPosition->setTrack( $this->track );
-		$aircraftPosition->setVerticalRate( $this->verticalRate );
-		$aircraftPosition->setSquawk( $this->squawk );
-		$this->aircraftPositionRepository->save( $aircraftPosition, true );
-	}
+    private function saveAircraftPosition(): void
+    {
+        $aircraftPosition = new AircraftPosition();
+        $aircraftPosition->setIcao($this->icao);
+        $aircraftPosition->setPositionAt(new DateTimeImmutable());
+        $aircraftPosition->setLatitude($this->latitude);
+        $aircraftPosition->setLongitude($this->longitude);
+        $aircraftPosition->setTrack($this->track);
+        $aircraftPosition->setVerticalRate($this->verticalRate);
+        $aircraftPosition->setSquawk($this->squawk);
+        $this->aircraftPositionRepository->save($aircraftPosition, true);
+    }
 
 
 }

@@ -1,6 +1,7 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        schema_filter: ~^(?!tiger)(?!topology)~
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
@@ -15,6 +16,13 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+        dql:
+            string_functions:
+                ST_Within: Jsor\Doctrine\PostGIS\Functions\ST_Within
+                # ...other string functions
+            numeric_functions:
+                ST_Distance: Jsor\Doctrine\PostGIS\Functions\ST_Distance
+                # ...other numeric functions
 
 when@test:
     doctrine:

@@ -21,25 +21,27 @@ services:
       - ./service-config/supervisor/supervisord-worker.conf:/etc/supervisor/conf.d/supervisord.conf:ro
     ports:
       - "5000-5100:5000-5100"
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: intelhub
-      MYSQL_USER: intelhub
-      MYSQL_PASSWORD: intelhub
+  postgresql:
+    image: postgis/postgis:14-3.3-alpine
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    env_file:
+      - service-config/pg/pg.env
     volumes:
-      - mysql:/var/lib/mysql
-  pma:
-    image: "phpmyadmin/phpmyadmin"
-    depends_on:
-      - mysql
-    environment:
-      - PMA_HOSTS=mysql
+      - postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - service-config/pgadmin/pgadmin.env
     ports:
-      - 7474:80
+      - "7474:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgresql
+
 volumes:
-  mysql:
-    driver: local
+  postgres-data:
+  pgadmin-data:
+
