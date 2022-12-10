@@ -38,17 +38,20 @@ class BaseStationMessage {
 		$this->aircraftPositionRepository = $aircraftPositionRepository;
 
 		$this->raw  = $raw;
-		$this->icao = BaseStationDecoder::getIcao( $raw );
-		if ( $this->icao === null ) {
-			return;
-		}
-		if ( $this->icao === '' ) {
-			return;
-		}
-		if ( $this->icao === '0' ) {
-			return;
-		}
-		$this->transmissionMessageType = BaseStationDecoder::getTransmissionMessageType( $raw );
+        $this->icao = BaseStationDecoder::getIcao($raw);
+        if ($this->icao === null) {
+            return;
+        }
+        if ($this->icao === '') {
+            return;
+        }
+        if ($this->icao === '0') {
+            return;
+        }
+        if ($this->latitude === null || $this->longitude === null) {
+            return;
+        }
+        $this->transmissionMessageType = BaseStationDecoder::getTransmissionMessageType($raw);
         $this->callsign = BaseStationDecoder::getCallsign($raw);
         $this->altitude = BaseStationDecoder::getAltitude($raw);
         $this->groundSpeed = BaseStationDecoder::getGroundSpeed($raw);
