@@ -19,6 +19,7 @@ services:
       - "5000-5100:5000-5100"
   postgresql:
     image: postgis/postgis:14-3.3-alpine
+    command: postgres -c 'max_connections=200 shared_buffers=5120MB effective_cache_size=5120MB wal_level=replica max_parallel_workers_per_gather=4 compress=on'
     ports:
       - "5432:5432"
     env_file:
