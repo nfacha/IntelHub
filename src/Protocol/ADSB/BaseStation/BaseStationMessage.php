@@ -40,15 +40,23 @@ class BaseStationMessage {
 		$this->raw  = $raw;
         $this->icao = BaseStationDecoder::getIcao($raw);
         if ($this->icao === null) {
+            print_r('Discarded message: No ICAO 1');
             return;
         }
         if ($this->icao === '') {
+            print_r('Discarded message: No ICAO 2');
             return;
         }
         if ($this->icao === '0') {
+            print_r('Discarded message: No ICAO 3');
             return;
         }
+
+        $this->latitude = BaseStationDecoder::getLatitude($raw);
+        $this->longitude = BaseStationDecoder::getLongitude($raw);
+
         if ($this->latitude === null || $this->longitude === null) {
+            print_r('Discarded message: No position');
             return;
         }
         $this->transmissionMessageType = BaseStationDecoder::getTransmissionMessageType($raw);
@@ -56,8 +64,6 @@ class BaseStationMessage {
         $this->altitude = BaseStationDecoder::getAltitude($raw);
         $this->groundSpeed = BaseStationDecoder::getGroundSpeed($raw);
         $this->track = BaseStationDecoder::getTrack($raw);
-        $this->latitude = BaseStationDecoder::getLatitude($raw);
-        $this->longitude = BaseStationDecoder::getLongitude($raw);
         $this->verticalRate = BaseStationDecoder::getVerticalRate($raw);
         $this->squawk = BaseStationDecoder::getSquawk($raw);
         $this->onGround = BaseStationDecoder::getOnGround($raw);
