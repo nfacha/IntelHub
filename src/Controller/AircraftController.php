@@ -16,33 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class AircraftController extends AbstractController
 {
     #[Route('/', name: 'app_aircraft_index', methods: ['GET'])]
-    public function index(AircraftRepository $aircraftRepository): Response
+    public function index(AircraftRepository $aircraftRepository, Request $request): Response
     {
         $queryBuilder = $aircraftRepository->createQueryBuilder('a');
         $adapter = new QueryAdapter($queryBuilder);
-        $pagerFanta = Pagerfanta::createForCurrentPageWithMaxPerPage($adapter, 1, 20);
+        $pagerFanta = Pagerfanta::createForCurrentPageWithMaxPerPage($adapter, $request->get('page', 1), 20);
 
         return $this->render('aircraft/index.html.twig', [
             'aircraft' => $pagerFanta,
-        ]);
-    }
-
-    #[Route('/new', name: 'app_aircraft_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AircraftRepository $aircraftRepository): Response
-    {
-        $aircraft = new Aircraft();
-        $form = $this->createForm(AircraftType::class, $aircraft);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $aircraftRepository->save($aircraft, true);
-
-            return $this->redirectToRoute('app_aircraft_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('aircraft/new.html.twig', [
-            'aircraft' => $aircraft,
-            'form' => $form,
         ]);
     }
 

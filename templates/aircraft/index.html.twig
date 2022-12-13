@@ -48,8 +48,9 @@
                 <td colspan="13">no records found</td>
             </tr>
         {% endfor %}
+
         </tbody>
     </table>
 
-    <a href="{{ path('app_aircraft_new') }}">Create new</a>
+    {{ pagerfanta(aircraft) }}
 {% endblock %}
