@@ -23,7 +23,7 @@ class AircraftController extends AbstractController
         $pagerFanta = Pagerfanta::createForCurrentPageWithMaxPerPage($adapter, $request->get('page', 1), 20);
 
         return $this->render('aircraft/index.html.twig', [
-            'aircraft' => $pagerFanta,
+            'aircrafts' => $pagerFanta,
         ]);
     }
 
