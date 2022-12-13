@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aircraft{% endblock %}
+
+{% block body %}
+    <h1>Aircraft</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ aircraft.id }}</td>
+        </tr>
+        <tr>
+            <th>Icao</th>
+            <td>{{ aircraft.icao }}</td>
+        </tr>
+        <tr>
+            <th>Is_military</th>
+            <td>{{ aircraft.isMilitary ? 'Yes' : 'No' }}</td>
+        </tr>
+        <tr>
+            <th>Registration</th>
+            <td>{{ aircraft.registration }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ aircraft.country }}</td>
+        </tr>
+        <tr>
+            <th>Manufacturer</th>
+            <td>{{ aircraft.manufacturer }}</td>
+        </tr>
+        <tr>
+            <th>Model</th>
+            <td>{{ aircraft.model }}</td>
+        </tr>
+        <tr>
+            <th>Model_icao</th>
+            <td>{{ aircraft.modelIcao }}</td>
+        </tr>
+        <tr>
+            <th>Operator</th>
+            <td>{{ aircraft.operator }}</td>
+        </tr>
+        <tr>
+            <th>Operator_icao</th>
+            <td>{{ aircraft.operatorIcao }}</td>
+        </tr>
+        <tr>
+            <th>Serial</th>
+            <td>{{ aircraft.serial }}</td>
+        </tr>
+        <tr>
+            <th>Year_build</th>
+            <td>{{ aircraft.yearBuild }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_aircraft_index') }}">back to list</a>
+
+    <a href="{{ path('app_aircraft_edit', {'id': aircraft.id}) }}">edit</a>
+
+    {{ include('aircraft/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aircraft index{% endblock %}
+
+{% block body %}
+    <h1>Aircraft index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Icao</th>
+            <th>Is_military</th>
+            <th>Registration</th>
+            <th>Country</th>
+            <th>Manufacturer</th>
+            <th>Model</th>
+            <th>Model_icao</th>
+            <th>Operator</th>
+            <th>Operator_icao</th>
+            <th>Serial</th>
+            <th>Year_build</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for aircraft in aircraft %}
+            <tr>
+                <td>{{ aircraft.id }}</td>
+                <td>{{ aircraft.icao }}</td>
+                <td>{{ aircraft.isMilitary ? 'Yes' : 'No' }}</td>
+                <td>{{ aircraft.registration }}</td>
+                <td>{{ aircraft.country }}</td>
+                <td>{{ aircraft.manufacturer }}</td>
+                <td>{{ aircraft.model }}</td>
+                <td>{{ aircraft.modelIcao }}</td>
+                <td>{{ aircraft.operator }}</td>
+                <td>{{ aircraft.operatorIcao }}</td>
+                <td>{{ aircraft.serial }}</td>
+                <td>{{ aircraft.yearBuild }}</td>
+                <td>
+                    <a href="{{ path('app_aircraft_show', {'id': aircraft.id}) }}">show</a>
+                    <a href="{{ path('app_aircraft_edit', {'id': aircraft.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_aircraft_new') }}">Create new</a>
+{% endblock %}
