@@ -2,14 +2,13 @@
 
 namespace App\Command;
 
-use App\Entity\Aircraft;
+use App\Messages\MictronicsFileMessage;
 use App\Repository\AircraftRepository;
-use Exception;
-use JsonException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use ZipArchive;
 
 #[AsCommand(
@@ -20,17 +19,16 @@ use ZipArchive;
 class DataCommand extends Command
 {
     private $aircraftRepository;
+    private $messageBus;
 
-    public function __construct(AircraftRepository $aircraftRepository)
+    public function __construct(AircraftRepository $aircraftRepository, MessageBusInterface $bus)
     {
         parent::__construct('Intel Ingest');
         $this->aircraftRepository = $aircraftRepository;
+        $this->messageBus = $bus;
 
     }
 
-    /**
-     * @throws JsonException
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln('Updating Mectronics data');
@@ -56,36 +54,9 @@ class DataCommand extends Command
             // Read and parse the JSON file
             $name = basename($json_file);
             $json_data = json_decode(file_get_contents($json_file), true, 512, JSON_THROW_ON_ERROR);
-            echo "Parsing file: " . $name . PHP_EOL;
-            $icaos = array_keys($json_data);
-            //loop icaos
-            foreach ($icaos as $icao) {
-                $filePrefix = str_replace('.json', '', $name);
-//                echo "File prefix is $filePrefix\n";
-                $fullIcao = strtoupper($filePrefix . $icao);
-                echo "Parsing ICAO: " . $fullIcao . PHP_EOL;
-                if (!array_key_exists('r', $json_data[$icao])) {
-                    echo "No registration found for $icao, possibly invalid hex\n";
-                    continue;
-                }
-                $aircraft = $this->aircraftRepository->findOneBy(['icao' => $icao]);
-                try {
-                    if (!$aircraft) {
-                        $aircraft = new Aircraft();
-                        $aircraft->setIcao($icao);
-                        $aircraft->setRegistration($json_data[$icao]['r']);
-                        $aircraft->setModelIcao($json_data[$icao]['t']);
-                        $aircraft->setIsMilitary($json_data[$icao]['f'] === "10");
-                        $aircraft->setModel($json_data[$icao]['desc']);
-                        echo "Adding new Aircraft: " . $icao . PHP_EOL;
-                    }
-                } catch (Exception $e) {
-                    echo "Error: " . $e->getMessage() . PHP_EOL;
-                    var_dump($json_data[$icao]);
-                    die();
-                }
-                $this->aircraftRepository->save($aircraft, true);
-            }
+            $data = new MictronicsFileMessage($name, $json_data);
+            $this->messageBus->dispatch($data);
+            echo "Dispatched $name\n";
         }
 
         return Command::SUCCESS;
