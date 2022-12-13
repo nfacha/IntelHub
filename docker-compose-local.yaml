@@ -10,6 +10,9 @@ services:
       - ./service-config/nginx/sites:/etc/nginx/conf.d:ro
     ports:
       - "80:80"
+    depends_on:
+      - postgresql
+      - rabbitmq
   worker:
     build:
       context: .
@@ -21,6 +24,10 @@ services:
       - ./service-config/supervisor/supervisord-worker.conf:/etc/supervisor/conf.d/supervisord.conf:ro
     ports:
       - "5000-5100:5000-5100"
+    depends_on:
+      - web
+      - postgresql
+      - rabbitmq
   postgresql:
     image: postgis/postgis:14-3.3-alpine
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
@@ -42,6 +49,11 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - postgresql
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      #      - '5672:5672' # No remote access is needed
+      - '15672:15672'
 
 volumes:
   postgres-data:

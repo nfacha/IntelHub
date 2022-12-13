@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "121ea1970d6ab65aaf94158a34baeffc",
+  "content-hash": "cd48457a779c8e393e862d7389e14660",
   "packages": [
     {
       "name": "doctrine/annotations",
@@ -25,16 +25,16 @@
         "ext-tokenizer": "*",
         "php": "^7.1 || ^8.0",
         "psr/cache": "^1 || ^2 || ^3"
-            },
-            "require-dev": {
-                "doctrine/cache": "^1.11 || ^2.0",
-                "doctrine/coding-standard": "^6.0 || ^8.1",
-                "phpstan/phpstan": "^1.4.10 || ^1.8.0",
-                "phpunit/phpunit": "^7.5 || ^8.0 || ^9.1.5",
-                "symfony/cache": "^4.4 || ^5.2",
-                "vimeo/psalm": "^4.10"
-            },
-            "type": "library",
+      },
+      "require-dev": {
+        "doctrine/cache": "^1.11 || ^2.0",
+        "doctrine/coding-standard": "^6.0 || ^8.1",
+        "phpstan/phpstan": "^1.4.10 || ^1.8.0",
+        "phpunit/phpunit": "^7.5 || ^8.0 || ^9.1.5",
+        "symfony/cache": "^4.4 || ^5.2",
+        "vimeo/psalm": "^4.10"
+      },
+      "type": "library",
             "autoload": {
                 "psr-4": {
                     "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
@@ -1423,15 +1423,15 @@
                     "name": "Eduardo Gulias Davis"
                 }
             ],
-            "description": "A library for validating emails against several RFCs",
-            "homepage": "https://github.com/egulias/EmailValidator",
-            "keywords": [
-              "email",
-              "emailvalidation",
-              "emailvalidator",
-              "validation",
-              "validator"
-            ],
+          "description": "A library for validating emails against several RFCs",
+          "homepage": "https://github.com/egulias/EmailValidator",
+          "keywords": [
+            "email",
+            "emailvalidation",
+            "emailvalidator",
+            "validation",
+            "validator"
+          ],
           "support": {
             "issues": "https://github.com/egulias/EmailValidator/issues",
             "source": "https://github.com/egulias/EmailValidator/tree/3.2.1"
@@ -1568,16 +1568,16 @@
       },
       "conflict": {
         "laminas/laminas-stdlib": "<3.2.1",
-                "zendframework/zend-stdlib": "<3.2.1"
-            },
-            "replace": {
-                "ocramius/proxy-manager": "^2.1"
-            },
-            "require-dev": {
-                "ext-phar": "*",
-                "symfony/phpunit-bridge": "^5.4|^6.0"
-            },
-            "type": "library",
+        "zendframework/zend-stdlib": "<3.2.1"
+      },
+      "replace": {
+        "ocramius/proxy-manager": "^2.1"
+      },
+      "require-dev": {
+        "ext-phar": "*",
+        "symfony/phpunit-bridge": "^5.4|^6.0"
+      },
+      "type": "library",
             "extra": {
                 "thanks": {
                     "name": "ocramius/proxy-manager",
@@ -1617,16 +1617,16 @@
                 "issues": "https://github.com/FriendsOfPHP/proxy-manager-lts/issues",
                 "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.13"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/Ocramius",
-                  "type": "github"
-                },
-              {
-                "url": "https://tidelift.com/funding/github/packagist/ocramius/proxy-manager",
-                "type": "tidelift"
-              }
-            ],
+      "funding": [
+        {
+          "url": "https://github.com/Ocramius",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/ocramius/proxy-manager",
+          "type": "tidelift"
+        }
+      ],
       "time": "2022-10-17T19:48:16+00:00"
     },
     {
@@ -1708,16 +1708,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/laminas/laminas-code/zipball/91aabc066d5620428120800c0eafc0411e441a62",
-                "reference": "91aabc066d5620428120800c0eafc0411e441a62",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4, <8.2"
-            },
-            "require-dev": {
-                "doctrine/annotations": "^1.13.2",
-                "ext-phar": "*",
-                "laminas/laminas-coding-standard": "^2.3.0",
+        "reference": "91aabc066d5620428120800c0eafc0411e441a62",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.4, <8.2"
+      },
+      "require-dev": {
+        "doctrine/annotations": "^1.13.2",
+        "ext-phar": "*",
+        "laminas/laminas-coding-standard": "^2.3.0",
                 "laminas/laminas-stdlib": "^3.6.1",
                 "phpunit/phpunit": "^9.5.10",
                 "psalm/plugin-phpunit": "^0.17.0",
@@ -2204,16 +2204,16 @@
                     "Psr\\EventDispatcher\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                  "name": "PHP-FIG",
-                  "homepage": "http://www.php-fig.org/"
-                }
-            ],
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "PHP-FIG",
+              "homepage": "http://www.php-fig.org/"
+            }
+          ],
           "description": "Standard interfaces for event handling.",
           "keywords": [
             "events",
@@ -2300,16 +2300,16 @@
         "fig/link-util": "Provides some useful PSR-13 utilities"
       },
       "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Link\\": "src/"
-                }
-            },
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.0.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Psr\\Link\\": "src/"
+        }
+      },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -2363,16 +2363,16 @@
                     "Psr\\Log\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                  "homepage": "https://www.php-fig.org/"
-                }
-            ],
+          "notification-url": "https://packagist.org/downloads/",
+          "license": [
+            "MIT"
+          ],
+          "authors": [
+            {
+              "name": "PHP-FIG",
+              "homepage": "https://www.php-fig.org/"
+            }
+          ],
           "description": "Common interface for logging libraries",
           "homepage": "https://github.com/php-fig/log",
           "keywords": [
@@ -3201,16 +3201,16 @@
         "symfony/dependency-injection": "^4.4|^5.0|^6.0",
         "symfony/framework-bundle": "^4.4|^5.0|^6.0",
         "symfony/http-kernel": "^4.4|^5.0|^6.0"
-            },
-            "conflict": {
-                "doctrine/doctrine-cache-bundle": "<1.3.1",
-                "doctrine/persistence": "<1.3"
-            },
-            "require-dev": {
-                "doctrine/dbal": "^2.10|^3.0",
-                "doctrine/doctrine-bundle": "^1.11|^2.0",
-                "doctrine/orm": "^2.5",
-                "symfony/browser-kit": "^4.4|^5.0|^6.0",
+      },
+      "conflict": {
+        "doctrine/doctrine-cache-bundle": "<1.3.1",
+        "doctrine/persistence": "<1.3"
+      },
+      "require-dev": {
+        "doctrine/dbal": "^2.10|^3.0",
+        "doctrine/doctrine-bundle": "^1.11|^2.0",
+        "doctrine/orm": "^2.5",
+        "symfony/browser-kit": "^4.4|^5.0|^6.0",
                 "symfony/doctrine-bridge": "^4.4|^5.0|^6.0",
                 "symfony/dom-crawler": "^4.4|^5.0|^6.0",
                 "symfony/expression-language": "^4.4|^5.0|^6.0",
@@ -3249,26 +3249,95 @@
             ],
             "description": "This bundle provides a way to configure your controllers with annotations",
             "keywords": [
-                "annotations",
-                "controllers"
+              "annotations",
+              "controllers"
             ],
-            "support": {
-                "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
-                "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.9"
-            },
-            "time": "2022-11-01T17:17:13+00:00"
+      "support": {
+        "issues": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/issues",
+        "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.2.9"
+      },
+      "time": "2022-11-01T17:17:13+00:00"
+    },
+    {
+      "name": "symfony/amqp-messenger",
+      "version": "v6.1.7",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/amqp-messenger.git",
+        "reference": "2d9bdc09a68734bf99249374f1cf844bc3e11035"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/amqp-messenger/zipball/2d9bdc09a68734bf99249374f1cf844bc3e11035",
+        "reference": "2d9bdc09a68734bf99249374f1cf844bc3e11035",
+        "shasum": ""
+      },
+      "require": {
+        "ext-amqp": "*",
+        "php": ">=8.1",
+        "symfony/messenger": "^6.1"
+      },
+      "require-dev": {
+        "symfony/event-dispatcher": "^5.4|^6.0",
+        "symfony/process": "^5.4|^6.0",
+        "symfony/property-access": "^5.4|^6.0",
+        "symfony/serializer": "^5.4|^6.0"
+      },
+      "type": "symfony-messenger-bridge",
+      "autoload": {
+        "psr-4": {
+          "Symfony\\Component\\Messenger\\Bridge\\Amqp\\": ""
+        },
+        "exclude-from-classmap": [
+          "/Tests/"
+        ]
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Fabien Potencier",
+          "email": "fabien@symfony.com"
         },
         {
-            "name": "symfony/asset",
-            "version": "v6.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/asset.git",
-                "reference": "6065b5edc36442cb1ba98dc40f7c7f6b9e154729"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/asset/zipball/6065b5edc36442cb1ba98dc40f7c7f6b9e154729",
+          "name": "Symfony Community",
+          "homepage": "https://symfony.com/contributors"
+        }
+      ],
+      "description": "Symfony AMQP extension Messenger Bridge",
+      "homepage": "https://symfony.com",
+      "support": {
+        "source": "https://github.com/symfony/amqp-messenger/tree/v6.1.7"
+      },
+      "funding": [
+        {
+          "url": "https://symfony.com/sponsor",
+          "type": "custom"
+        },
+        {
+          "url": "https://github.com/fabpot",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+          "type": "tidelift"
+        }
+      ],
+      "time": "2022-10-18T13:12:43+00:00"
+    },
+    {
+      "name": "symfony/asset",
+      "version": "v6.1.5",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/symfony/asset.git",
+        "reference": "6065b5edc36442cb1ba98dc40f7c7f6b9e154729"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/symfony/asset/zipball/6065b5edc36442cb1ba98dc40f7c7f6b9e154729",
                 "reference": "6065b5edc36442cb1ba98dc40f7c7f6b9e154729",
                 "shasum": ""
             },
