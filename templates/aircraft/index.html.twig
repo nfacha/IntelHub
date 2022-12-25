@@ -13,9 +13,7 @@
             <th class="px-4 py-2 w-1/4">Model</th>
             <th class="px-4 py-2 w-1/4">Country</th>
             <th class="px-4 py-2 w-1/4">Military</th>
-            {% if is_granted('ROLE_ADMIN', app.user) %}
-                <th class="px-4 py-2 w-1/4">Edit</th>
-            {% endif %}
+            <th class="px-4 py-2 w-1/4">Options</th>
         </tr>
         </thead>
         <tbody>
@@ -32,14 +30,20 @@
                         <span class="rounded-full p-2 bg-red-500 text-white">No</span>
                     {% endif %}
                 </td>
-                {% if is_granted('ROLE_ADMIN', app.user) %}
-                    <td class="border px-4 py-2 w-1/4">
+
+                <td class="border px-4 py-2 w-1/4">
+                    <a href="{{ path('app_aircraft_show', {'id': aircraft.id}) }}"
+                       class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        View
+                    </a>
+                    {% if is_granted('ROLE_ADMIN', app.user) %}
+                        <br>
                         <a href="{{ path('app_aircraft_edit', {'id': aircraft.id}) }}"
                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Edit
                         </a>
-                    </td>
-                {% endif %}
+                    {% endif %}
+                </td>
 
             </tr>
         {% endfor %}
