@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Aircraft;
 use App\Form\AircraftType;
+use App\libs\VRSData;
 use App\Repository\AircraftRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -64,5 +65,22 @@ class AircraftController extends AbstractController
         }
 
         return $this->redirectToRoute('app_aircraft_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/data-update', name: 'app_aircraft_update_details', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function dataUpdate(Request $request, Aircraft $aircraft, AircraftRepository $aircraftRepository): Response
+    {
+        $vrsData = new VRSData();
+        $data = $vrsData->getAircraftData([$aircraft->getIcao()]);
+        $vrsDataResult = VRSData::findAircraft($data, $aircraft->getIcao());
+        if (!empty($vrsDataResult)) {
+            $aircraft->updateFromVRSData($vrsDataResult);
+            $aircraftRepository->save($aircraft, true);
+            $this->addFlash('success', 'Aircraft data updated');
+        } else {
+            $this->addFlash('warning', 'Aircraft data not found');
+        }
+        return $this->redirectToRoute('app_aircraft_show', ['id' => $aircraft->getId()], Response::HTTP_SEE_OTHER);
     }
 }

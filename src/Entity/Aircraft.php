@@ -198,4 +198,17 @@ class Aircraft
 
         return $this;
     }
+
+    public function updateFromVRSData($vrsData)
+    {
+        $this->setCountry($vrsData['Country']);
+        $this->setManufacturer($vrsData['Manufacturer']);
+        $this->setModel($vrsData['Model']);
+        $this->setModelIcao($vrsData['ModelIcao']);
+        $this->setOperator($vrsData['Operator']);
+        $this->setOperatorIcao($vrsData['OperatorIcao']);
+        $this->setRegistration($vrsData['Registration']);
+        $this->setSerial($vrsData['Serial']);
+        $this->setYearBuild($vrsData['YearBuilt']);
+    }
 }
