@@ -20,7 +20,7 @@ class IngestorType extends AbstractType {
 					'placeholder' => 'Name',
 				],
 			] )
-			->add( 'type', ChoiceType::class, [
+			->add( 'protocol', ChoiceType::class, [
 				'label'   => false,
 				'choices' => MessageProtocol::getChoices(),
 			] )
