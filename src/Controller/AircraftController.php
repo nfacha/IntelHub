@@ -81,6 +81,6 @@ class AircraftController extends AbstractController
         } else {
             $this->addFlash('warning', 'Aircraft data not found');
         }
-        return $this->redirectToRoute('app_aircraft_show', ['id' => $aircraft->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_aircraft_show', ['icao' => $aircraft->getIcao()], Response::HTTP_SEE_OTHER);
     }
 }
