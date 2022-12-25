@@ -216,6 +216,7 @@ class Aircraft
         $this->setRegistration($vrsData['Registration']);
         $this->setSerial($vrsData['Serial']);
         $this->setYearBuild($vrsData['YearBuilt']);
+        $this->setLastDataUpdateAt(new \DateTimeImmutable());
     }
 
     public function getLastDataUpdateAt(): ?\DateTimeImmutable
