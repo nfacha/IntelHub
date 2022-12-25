@@ -50,6 +50,12 @@ class Aircraft
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $picture_url = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $last_data_update_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $last_picture_update_at = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -210,5 +216,29 @@ class Aircraft
         $this->setRegistration($vrsData['Registration']);
         $this->setSerial($vrsData['Serial']);
         $this->setYearBuild($vrsData['YearBuilt']);
+    }
+
+    public function getLastDataUpdateAt(): ?\DateTimeImmutable
+    {
+        return $this->last_data_update_at;
+    }
+
+    public function setLastDataUpdateAt(?\DateTimeImmutable $last_data_update_at): self
+    {
+        $this->last_data_update_at = $last_data_update_at;
+
+        return $this;
+    }
+
+    public function getLastPictureUpdateAt(): ?\DateTimeImmutable
+    {
+        return $this->last_picture_update_at;
+    }
+
+    public function setLastPictureUpdateAt(?\DateTimeImmutable $last_picture_update_at): self
+    {
+        $this->last_picture_update_at = $last_picture_update_at;
+
+        return $this;
     }
 }

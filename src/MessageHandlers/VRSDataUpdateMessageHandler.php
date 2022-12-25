@@ -11,16 +11,18 @@ class VRSDataUpdateMessageHandler implements MessageHandlerInterface
 {
 
     private $aircraftRepository;
+    private $vrsData;
 
     public function __construct(AircraftRepository $aircraftRepository)
     {
         $this->aircraftRepository = $aircraftRepository;
+        $this->vrsData = new VRSData();
+
     }
 
     public function __invoke(VRSDataUpdateMessage $message)
     {
         $icaos = $message->getIcaos();
-        //if icaos has more than 400 elements split in array of 400 each
         if (count($icaos) > 400) {
             $sections = array_chunk($icaos, 400);
             foreach ($sections as $section) {
@@ -30,6 +32,17 @@ class VRSDataUpdateMessageHandler implements MessageHandlerInterface
             $this->updateAircraftData($icaos);
         }
 
-        $vrsData = new VRSData();
+    }
+
+    private function updateAircraftData(array $icaos): void
+    {
+        $data = $this->vrsData->getAircraftData($icaos);
+        foreach ($data as $row) {
+            $aircraft = $this->aircraftRepository->findOneBy(['icao' => $row['Icao']]);
+            if ($aircraft) {
+                $aircraft->updateFromVRSData($row);
+                $this->aircraftRepository->save($aircraft, true);
+            }
+        }
     }
 }
