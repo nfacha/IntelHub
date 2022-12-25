@@ -16,7 +16,7 @@ use ZipArchive;
     description: 'Update Mectronics data',
     hidden: false,
 )]
-class DataCommand extends Command
+class DataMictronicsCommand extends Command
 {
     private $aircraftRepository;
     private $messageBus;
