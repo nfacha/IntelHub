@@ -29,7 +29,7 @@ class AircraftController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_aircraft_show', methods: ['GET'])]
+    #[Route('/{icao}', name: 'app_aircraft_show', methods: ['GET'])]
     public function show(Aircraft $aircraft): Response
     {
         return $this->render('aircraft/show.html.twig', [
@@ -37,7 +37,7 @@ class AircraftController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_aircraft_edit', methods: ['GET', 'POST'])]
+    #[Route('/{icao}/edit', name: 'app_aircraft_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Aircraft $aircraft, AircraftRepository $aircraftRepository): Response
     {
@@ -56,7 +56,7 @@ class AircraftController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_aircraft_delete', methods: ['POST'])]
+    #[Route('/{icao}', name: 'app_aircraft_delete', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Aircraft $aircraft, AircraftRepository $aircraftRepository): Response
     {
@@ -67,7 +67,7 @@ class AircraftController extends AbstractController
         return $this->redirectToRoute('app_aircraft_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/data-update', name: 'app_aircraft_update_details', methods: ['GET'])]
+    #[Route('/{icao}/data-update', name: 'app_aircraft_update_details', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
     public function dataUpdate(Request $request, Aircraft $aircraft, AircraftRepository $aircraftRepository): Response
     {

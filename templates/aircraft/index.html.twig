@@ -32,13 +32,13 @@
                 </td>
 
                 <td class="border px-4 py-2 w-1/4">
-                    <a href="{{ path('app_aircraft_show', {'id': aircraft.id}) }}"
+                    <a href="{{ path('app_aircraft_show', {'icao': aircraft.icao}) }}"
                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         View
                     </a>
                     {% if is_granted('ROLE_ADMIN', app.user) %}
                         <br>
-                        <a href="{{ path('app_aircraft_edit', {'id': aircraft.id}) }}"
+                        <a href="{{ path('app_aircraft_edit', {'icao': aircraft.icao}) }}"
                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Edit
                         </a>
