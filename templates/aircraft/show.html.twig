@@ -3,60 +3,46 @@
 {% block title %}Aircraft{% endblock %}
 
 {% block body %}
-    <h1>Aircraft</h1>
-
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ aircraft.id }}</td>
-        </tr>
-        <tr>
-            <th>Icao</th>
-            <td>{{ aircraft.icao }}</td>
-        </tr>
-        <tr>
-            <th>Is_military</th>
-            <td>{{ aircraft.isMilitary ? 'Yes' : 'No' }}</td>
-        </tr>
-        <tr>
-            <th>Registration</th>
-            <td>{{ aircraft.registration }}</td>
-        </tr>
-        <tr>
-            <th>Country</th>
-            <td>{{ aircraft.country }}</td>
-        </tr>
-        <tr>
-            <th>Manufacturer</th>
-            <td>{{ aircraft.manufacturer }}</td>
-        </tr>
-        <tr>
-            <th>Model</th>
-            <td>{{ aircraft.model }}</td>
-        </tr>
-        <tr>
-            <th>Model_icao</th>
-            <td>{{ aircraft.modelIcao }}</td>
-        </tr>
-        <tr>
-            <th>Operator</th>
-            <td>{{ aircraft.operator }}</td>
-        </tr>
-        <tr>
-            <th>Operator_icao</th>
-            <td>{{ aircraft.operatorIcao }}</td>
-        </tr>
-        <tr>
-            <th>Serial</th>
-            <td>{{ aircraft.serial }}</td>
-        </tr>
-        <tr>
-            <th>Year_build</th>
-            <td>{{ aircraft.yearBuild }}</td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="flex flex-col items-center mt-8">
+        <h2 class="text-2xl font-bold mb-4">Aircraft Information</h2>
+        <div class="w-3/4 md:w-1/2 lg:w-1/3 p-4 bg-white rounded-lg shadow-lg">
+            <div class="flex flex-col items-center mb-4">
+                <img src="" alt="Aircraft picture" class="w-32 h-32 object-cover rounded-full">
+                <h3 class="text-xl font-bold mt-4">{{ aircraft.icao }}</h3>
+                <p class="text-gray-600">Registration: {{ aircraft.registration }}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <div class="col-span-1 p-2 text-gray-600">
+                    <p class="font-bold mb-2">Military:</p>
+                    <p>{{ aircraft.isMilitary ? 'Yes' : 'No' }}</p>
+                </div>
+                <div class="col-span-1 p-2 text-gray-600">
+                    <p class="font-bold mb-2">Country of Registration:</p>
+                    <p>{{ aircraft.country }}</p>
+                </div>
+                <div class="col-span-1 p-2 text-gray-600">
+                    <p class="font-bold mb-2">Manufacturer:</p>
+                    <p>{{ aircraft.manufacturer }}</p>
+                </div>
+                <div class="col-span-1 p-2 text-gray-600">
+                    <p class="font-bold mb-2">Model:</p>
+                    <p>{{ aircraft.model }}</p>
+                </div>
+                <div class="col-span-1 p-2 text-gray-600">
+                    <p class="font-bold mb-2">Operator:</p>
+                    <p>{{ aircraft.operator }}</p>
+                </div>
+                <div class="col-span-1 p-2 text-gray-600">
+                    <p class="font-bold mb-2">Serial Number:</p>
+                    <p>{{ aircraft.serial }}</p>
+                </div>
+                <div class="col-span-1 p-2 text-gray-600">
+                    <p class="font-bold mb-2">Build Year:</p>
+                    <p>{{ aircraft.yearBuild }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <a href="{{ path('app_aircraft_index') }}">back to list</a>
 

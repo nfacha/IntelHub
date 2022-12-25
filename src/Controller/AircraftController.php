@@ -7,6 +7,7 @@ use App\Form\AircraftType;
 use App\Repository\AircraftRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +37,7 @@ class AircraftController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_aircraft_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Aircraft $aircraft, AircraftRepository $aircraftRepository): Response
     {
         $form = $this->createForm(AircraftType::class, $aircraft);
@@ -54,6 +56,7 @@ class AircraftController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_aircraft_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Aircraft $aircraft, AircraftRepository $aircraftRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $aircraft->getId(), $request->request->get('_token'))) {
