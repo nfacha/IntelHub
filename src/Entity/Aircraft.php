@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AircraftRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AircraftRepository::class)]
@@ -45,6 +46,9 @@ class Aircraft
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $year_build = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $picture_url = null;
 
     public function getId(): ?int
     {
@@ -179,6 +183,18 @@ class Aircraft
     public function setYearBuild(?string $year_build): self
     {
         $this->year_build = $year_build;
+
+        return $this;
+    }
+
+    public function getPictureUrl(): ?string
+    {
+        return $this->picture_url;
+    }
+
+    public function setPictureUrl(?string $picture_url): self
+    {
+        $this->picture_url = $picture_url;
 
         return $this;
     }
