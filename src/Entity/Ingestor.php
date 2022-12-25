@@ -40,10 +40,10 @@ class Ingestor
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pending_command = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true, options: ['default' => 0])]
     private ?int $processed_messages = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true, options: ['default' => 0])]
     private ?int $total_processed_messages = null;
 
     #[ORM\Column(nullable: true)]

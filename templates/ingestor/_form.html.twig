@@ -2,15 +2,46 @@
     {{ form_start(form,{'attr': {'class': 'w-screen'}}) }}
     {{ form_errors(form) }}
 
-    {{ form_row(form.name, {'attr': {'class': 'rounded w-10/12'}}) }}
-    {{ form_row(form.protocol, {'attr': {'class': 'rounded w-10/12'}}) }}
-    {{ form_row(form.source_type, {'attr': {'class': 'rounded w-10/12'}}) }}
-    {{ form_row(form.pull_ip, {'attr': {'class': 'rounded w-10/12'}}) }}
-    {{ form_row(form.pull_port, {'attr': {'class': 'rounded w-10/12'}}) }}
-    {{ form_row(form.push_port, {'attr': {'class': 'rounded w-10/12'}}) }}
-    {{ form_row(form.active, {'attr': {'class': 'rounded w-10/12'}}) }}
-    {{ form_row(form.pending_command, {'attr': {'class': 'rounded w-10/12'}}) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="grid grid-cols-3 gap-4 mt-4">
+        <div class="col-span-2">
+            <label for="{{ form.name.vars.id }}" class="text-lg font-bold">{{ form_label(form.name) }}</label>
+            {{ form_widget(form.name, {'attr': {'class': 'form-input rounded w-full'}}) }}
+        </div>
+        <div class="col-span-1">
+            <label for="{{ form.active.vars.id }}" class="text-lg font-bold">{{ form_label(form.active) }}</label>
+            {{ form_widget(form.active, {'attr': {'class': 'form-input rounded w-full'}}) }}
+        </div>
+        <div class="col-span-2">
+            <label for="{{ form.protocol.vars.id }}" class="text-lg font-bold">{{ form_label(form.protocol) }}</label>
+            {{ form_widget(form.protocol, {'attr': {'class': 'form-input rounded w-full'}}) }}
+        </div>
+        <div class="col-span-1">
+            <label for="{{ form.source_type.vars.id }}"
+                   class="text-lg font-bold">{{ form_label(form.source_type) }}</label>
+            {{ form_widget(form.source_type, {'attr': {'class': 'form-input rounded w-full'}}) }}
+        </div>
+        <div class="col-span-1">
+            <label for="{{ form.pull_ip.vars.id }}" class="text-lg font-bold">{{ form_label(form.pull_ip) }}</label>
+            {{ form_widget(form.pull_ip, {'attr': {'class': 'form-input rounded w-full'}}) }}
+        </div>
+        <div class="col-span-1">
+            <label for="{{ form.pull_port.vars.id }}" class="text-lg font-bold">{{ form_label(form.pull_port) }}</label>
+            {{ form_widget(form.pull_port, {'attr': {'class': 'form-input rounded w-full'}}) }}
+        </div>
+        <div class="col-span-1">
+            <label for="{{ form.push_port.vars.id }}" class="text-lg font-bold">{{ form_label(form.push_port) }}</label>
+            {{ form_widget(form.push_port, {'attr': {'class': 'form-input rounded w-full'}}) }}
+        </div>
+        <div class="col-span-3">
+            <label for="{{ form.pending_command.vars.id }}"
+                   class="text-lg font-bold">{{ form_label(form.pending_command) }}</label>
+            {{ form_widget(form.pending_command, {'attr': {'class': 'form-input rounded w-full'}}) }}
+        </div>
+    </div>
+    <div class="mt-8">
+        <button type="submit"
+                class="btn bg-blue-500 text-white rounded-full px-4 py-2">{{ button_label|default('Save') }}</button>
+    </div>
     {{ form_end(form) }}
-
 </div>
+
