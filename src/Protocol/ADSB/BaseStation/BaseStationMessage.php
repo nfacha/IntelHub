@@ -51,6 +51,10 @@ class BaseStationMessage {
             print_r('Discarded message: No ICAO 3');
             return;
         }
+        if (str_starts_with($this->icao, '~')) {
+            print_r('Discarded message: Fake ICAO');
+            return;
+        }
 
         $this->latitude = BaseStationDecoder::getLatitude($raw);
         $this->longitude = BaseStationDecoder::getLongitude($raw);
