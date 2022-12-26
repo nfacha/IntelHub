@@ -273,5 +273,23 @@ class Aircraft
         $this->setLastDataUpdateAt(new \DateTimeImmutable());
     }
 
-
+    public function updatePhotoFromPlaneSpotters()
+    {
+        if ($this->getLastPictureUpdateAt() && $this->getLastPictureUpdateAt()->diff(new \DateTimeImmutable())->days < 1) {
+            return;
+        }
+        $url = 'https://www.planespotters.net/api/aircraft/hex/' . $this->getIcao();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        $data = json_decode($output, true);
+        if (count($data['photos']) > 0) {
+            $this->setPictureUrl($data['data']['photos'][0]['thumbnail_large']['src']);
+            $this->setPhotoAuthor($data['data']['photos'][0]['photographer']);
+            $this->setPhotoLink($data['data']['photos'][0]['link']);
+            $this->setLastPictureUpdateAt(new \DateTimeImmutable());
+        }
+    }
 }
