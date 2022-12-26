@@ -41,7 +41,7 @@ services:
   rabbitmq:
     image: rabbitmq:3.11-management
     ports:
-      #      - '5672:5672' # No remote access is needed
+      - '5672:5672' # No remote access is needed
       - '15672:15672'
 volumes:
   postgres-data:
