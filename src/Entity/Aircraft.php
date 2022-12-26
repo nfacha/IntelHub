@@ -56,6 +56,12 @@ class Aircraft
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $last_picture_update_at = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo_author = null;
+
+    #[ORM\Column(length: 1000, nullable: true)]
+    private ?string $photo_link = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -239,6 +245,30 @@ class Aircraft
     public function setLastPictureUpdateAt(?\DateTimeImmutable $last_picture_update_at): self
     {
         $this->last_picture_update_at = $last_picture_update_at;
+
+        return $this;
+    }
+
+    public function getPhotoAuthor(): ?string
+    {
+        return $this->photo_author;
+    }
+
+    public function setPhotoAuthor(?string $photo_author): self
+    {
+        $this->photo_author = $photo_author;
+
+        return $this;
+    }
+
+    public function getPhotoLink(): ?string
+    {
+        return $this->photo_link;
+    }
+
+    public function setPhotoLink(?string $photo_link): self
+    {
+        $this->photo_link = $photo_link;
 
         return $this;
     }
