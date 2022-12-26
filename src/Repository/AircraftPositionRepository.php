@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AircraftPosition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,17 +15,24 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method AircraftPosition[]    findAll()
  * @method AircraftPosition[]    findBy( array $criteria, array $orderBy = null, $limit = null, $offset = null )
  */
-class AircraftPositionRepository extends ServiceEntityRepository {
-	public function __construct( ManagerRegistry $registry ) {
-		parent::__construct( $registry, AircraftPosition::class );
-	}
+class AircraftPositionRepository extends ServiceEntityRepository
+{
 
-	public function save( AircraftPosition $entity, bool $flush = false ): void {
-		$this->getEntityManager()->persist( $entity );
+    private $em;
 
-		if ( $flush ) {
-			$this->getEntityManager()->flush();
-		}
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
+    {
+        parent::__construct($registry, AircraftPosition::class);
+        $this->em = $em;
+    }
+
+    public function save(AircraftPosition $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
 	}
 
 	public function remove( AircraftPosition $entity, bool $flush = false ): void {
@@ -59,4 +67,21 @@ class AircraftPositionRepository extends ServiceEntityRepository {
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    /**
+     * @throws \Exception
+     */
+    public function deleteOldPositions(int $days)
+    {
+        $query = $this->em->createQuery(
+            'DELETE FROM App\Entity\AircraftPosition p WHERE p.position_at < :cutoff'
+        );
+
+        $cutoff = new \DateTime();
+        $cutoff->sub(new \DateInterval(sprintf('P%dD', $days)));
+
+        $query->setParameter('cutoff', $cutoff);
+
+        return $query->execute();
+    }
 }
