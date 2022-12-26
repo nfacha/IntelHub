@@ -30,8 +30,11 @@ class AircraftController extends AbstractController
     }
 
     #[Route('/{icao}', name: 'app_aircraft_show', methods: ['GET'])]
-    public function show(Aircraft $aircraft): Response
+    public function show(Aircraft $aircraft, AircraftRepository $aircraftRepository): Response
     {
+        if ($aircraft->updatePhotoFromPlaneSpotters()) {
+            $aircraftRepository->save($aircraft, true);
+        }
         return $this->render('aircraft/show.html.twig', [
             'aircraft' => $aircraft,
         ]);
