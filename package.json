@@ -35,7 +35,7 @@
     "scripts": {
         "dev-server": "encore dev-server",
         "dev": "encore dev",
-        "watch": "encore dev --watch",
+        "watch": "concurrently \"encore dev --watch\" \"mix watch\"",
         "build": "encore production --progress"
     },
     "dependencies": {
