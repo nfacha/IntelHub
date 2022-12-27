@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -14,64 +14,23 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
-<body class="bg-gray-200">
+<body class="main">
+<!-- BEGIN: Mobile Menu -->
+<div class="mobile-menu md:hidden">
+    ...
+</div>
+<!-- END: Mobile Menu -->
 <div class="flex">
-    <div class="w-1/6 h-screen px-4 py-6 bg-blue-500">
-        <a href="/">
-            <div class="mb-6">
-                <p class="text-white text-center font-bold text-4xl">IntelHub</p>
-                <hr class="m-4">
-            </div>
-        </a>
-
-        {% if app.user %}
-            <div class="mb-6">
-                <img
-                        src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-                        alt="User Avatar"
-                        class="rounded-full h-12 w-12 mx-auto"
-                />
-                <p class="text-white text-center mt-2 font-semibold">Username</p>
-                <a href="{{ path('app_logout') }}">
-                    <p class="text-center bg-red-600 text-white mt-2 text-s font-bold">Logout</p>
-                </a>
-                <hr class="m-4">
-            </div>
-        {% else %}
-            <a href="{{ path('app_login') }}">
-                <p class="text-center bg-green-600 text-white mt-2 text-s font-bold">Login</p>
-            </a>
-            <hr class="m-4">
-
-        {% endif %}
-        <nav class="ml-4">
-            <ul>
-                {#                <li class="mb-2"> #}
-                {#                    <a href="#" class="text-white font-semibold block menu-link">Menu 1</a> #}
-                {#                    <ul class="hidden"> #}
-                {#                        <li class="mb-1"><a href="#" class="text-white block">Submenu 1</a></li> #}
-                {#                        <li class="mb-1"><a href="#" class="text-white block">Submenu 2</a></li> #}
-                {#                        <li class="mb-1"><a href="#" class="text-white block">Submenu 3</a></li> #}
-                {#                    </ul> #}
-                {#                </li> #}
-                <li class="mb-2"><a href="/" class="text-white font-semibold block">Home</a></li>
-                <li class="mb-2"><a href="/aircraft" class="text-white font-semibold block">Aircraft</a></li>
-                {% if is_granted('ROLE_ADMIN', app.user) %}
-                    <li class="mb-2">
-                        <a href="#"
-                           class="text-white font-semibold block menu-link {{ '/settings/' in app.request.pathInfo ? 'open': '' }}">Settings</a>
-                        <ul class="{{ '/settings/' not in app.request.pathInfo ? 'hidden': '' }}">
-                            <li class="mb-1 ml-1"><a href="{{ path('app_ingestor_index') }}"
-                                                     class="text-white block">Ingestors</a></li>
-                        </ul>
-                    </li>
-                {% endif %}
-            </ul>
-        </nav>
+    <!-- BEGIN: Side Menu -->
+    <nav class="side-nav">
+        ...
+    </nav>
+    <!-- END: Side Menu -->
+    <!-- BEGIN: Content -->
+    <div class="content">
+        ...
     </div>
-    <div class="w-4/5 h-screen px-4 py-6">
-        {% block body %}{% endblock %}
-    </div>
+    <!-- END: Content -->
 </div>
 </body>
 </html>
