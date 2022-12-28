@@ -43,12 +43,21 @@
             <ul class="scrollable__content">
                 <li class="side-nav__devider mb-4">Menu</li>
                 <li>
-                    <a href="side-menu-light-calendar.html"
+                    <a href="/"
                        class="side-menu">
                         <div class="side-menu__icon">
-                            <i data-lucide="calendar"></i>
+                            <i data-lucide="home"></i>
                         </div>
-                        <div class="side-menu__title"> Calendar</div>
+                        <div class="side-menu__title"> Home</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('app_aircraft_index') }}"
+                       class="side-menu">
+                        <div class="side-menu__icon">
+                            <i data-lucide="plane"></i>
+                        </div>
+                        <div class="side-menu__title"> Aircraft</div>
                     </a>
                 </li>
             </ul>
