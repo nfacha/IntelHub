@@ -74,6 +74,10 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+	.copyFiles({
+		from: './theme/Source/dist',
+		to: './theme/[path][name].[ext]',
+	})
 ;
 
 module.exports = Encore.getWebpackConfig();
