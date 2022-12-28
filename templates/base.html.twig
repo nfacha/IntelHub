@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en"
+      class="dark">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}IntelHub{% endblock %}</title>
@@ -12,7 +13,8 @@
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
-    <link rel="stylesheet" href="/build/theme/css/app.css"/>
+    <link rel="stylesheet"
+          href="/build/theme/css/app.css"/>
 </head>
 <body class="main">
 <div class="flex">
@@ -20,24 +22,32 @@
     <nav class="side-nav">
         <div class="pt-4 mb-4">
             <div class="side-nav__header flex items-center">
-                <a href="" class="intro-x flex items-center">
+                <a href=""
+                   class="intro-x flex items-center">
                     {#                    <img alt="IntelHub" class="side-nav__header__logo" src="/build/theme/images/logo.svg"> #}
                     <span class="side-nav__header__text text-white pt-0.5 text-lg ml-2.5"> IntelHub </span>
                 </a>
                 <a href="javascript:;"
                    class="side-nav__header__toggler hidden xl:block ml-auto text-white text-opacity-70 hover:text-opacity-100 transition-all duration-300 ease-in-out pr-5">
-                    <i data-lucide="arrow-left-circle" class="w-5 h-5"></i> </a>
+                    <i data-lucide="arrow-left-circle"
+                       class="w-5 h-5"></i>
+                </a>
                 <a href="javascript:;"
                    class="mobile-menu-toggler xl:hidden ml-auto text-white text-opacity-70 hover:text-opacity-100 transition-all duration-300 ease-in-out pr-5">
-                    <i data-lucide="x-circle" class="w-5 h-5"></i> </a>
+                    <i data-lucide="x-circle"
+                       class="w-5 h-5"></i>
+                </a>
             </div>
         </div>
         <div class="scrollable">
             <ul class="scrollable__content">
                 <li class="side-nav__devider mb-4">Menu</li>
                 <li>
-                    <a href="side-menu-light-calendar.html" class="side-menu">
-                        <div class="side-menu__icon"><i data-lucide="calendar"></i></div>
+                    <a href="side-menu-light-calendar.html"
+                       class="side-menu">
+                        <div class="side-menu__icon">
+                            <i data-lucide="calendar"></i>
+                        </div>
                         <div class="side-menu__title"> Calendar</div>
                     </a>
                 </li>
@@ -51,8 +61,9 @@
         <div class="top-bar">
             <!-- BEGIN: Mobile Menu -->
             <div class="-intro-x xl:hidden mr-3 sm:mr-6">
-                <div class="mobile-menu-toggler cursor-pointer"><i data-lucide="bar-chart-2"
-                                                                   class="mobile-menu-toggler__icon transform rotate-90 dark:text-slate-500"></i>
+                <div class="mobile-menu-toggler cursor-pointer">
+                    <i data-lucide="bar-chart-2"
+                       class="mobile-menu-toggler__icon transform rotate-90 dark:text-slate-500"></i>
                 </div>
             </div>
             <!-- END: Mobile Menu -->
@@ -62,8 +73,10 @@
                 {#                    <input type="text" class="search__input form-control" placeholder="Quick Search... (Ctrl+k)"> #}
                 {#                    <i data-lucide="search" class="search__icon"></i> #}
                 {#                </div> #}
-                <a class="notification sm:hidden" href=""> <i data-lucide="search"
-                                                              class="notification__icon dark:text-slate-500 mr-5"></i>
+                <a class="notification sm:hidden"
+                   href="">
+                    <i data-lucide="search"
+                       class="notification__icon dark:text-slate-500 mr-5"></i>
                 </a>
             </div>
             <!-- END: Search -->
@@ -115,7 +128,7 @@
             {#                                <div class="mb-5"> #}
             {#                                    <a href="" class="flex items-center mt-3 first:mt-0"> #}
             {#                                        <div class="w-7 h-7 image-fit"> #}
-            {#                                            <img alt="Rocketman - HTML Admin Template" #}
+            {#                                            <img alt="IntelHUb" #}
             {#                                                 class="rounded-full" #}
             {#                                                 src="/build/theme/images/profile-5.jpg"> #}
             {#                                        </div> #}
@@ -124,7 +137,7 @@
             {#                                    </a> #}
             {#                                    <a href="" class="flex items-center mt-3 first:mt-0"> #}
             {#                                        <div class="w-7 h-7 image-fit"> #}
-            {#                                            <img alt="Rocketman - HTML Admin Template" #}
+            {#                                            <img alt="IntelHUb" #}
             {#                                                 class="rounded-full" #}
             {#                                                 src="/build/theme/images/profile-14.jpg"> #}
             {#                                        </div> #}
@@ -133,7 +146,7 @@
             {#                                    </a> #}
             {#                                    <a href="" class="flex items-center mt-3 first:mt-0"> #}
             {#                                        <div class="w-7 h-7 image-fit"> #}
-            {#                                            <img alt="Rocketman - HTML Admin Template" #}
+            {#                                            <img alt="IntelHUb" #}
             {#                                                 class="rounded-full" #}
             {#                                                 src="/build/theme/images/profile-3.jpg"> #}
             {#                                        </div> #}
@@ -142,7 +155,7 @@
             {#                                    </a> #}
             {#                                    <a href="" class="flex items-center mt-3 first:mt-0"> #}
             {#                                        <div class="w-7 h-7 image-fit"> #}
-            {#                                            <img alt="Rocketman - HTML Admin Template" #}
+            {#                                            <img alt="IntelHUb" #}
             {#                                                 class="rounded-full" #}
             {#                                                 src="/build/theme/images/profile-1.jpg"> #}
             {#                                        </div> #}
@@ -154,7 +167,7 @@
             {#                                <div> #}
             {#                                    <a href="" class="flex items-center mt-3 first:mt-0"> #}
             {#                                        <div class="w-7 h-7 image-fit"> #}
-            {#                                            <img alt="Rocketman - HTML Admin Template" #}
+            {#                                            <img alt="IntelHUb" #}
             {#                                                 class="rounded-full" #}
             {#                                                 src="/build/theme/images/preview-15.jpg"> #}
             {#                                        </div> #}
@@ -163,7 +176,7 @@
             {#                                    </a> #}
             {#                                    <a href="" class="flex items-center mt-3 first:mt-0"> #}
             {#                                        <div class="w-7 h-7 image-fit"> #}
-            {#                                            <img alt="Rocketman - HTML Admin Template" #}
+            {#                                            <img alt="IntelHUb" #}
             {#                                                 class="rounded-full" #}
             {#                                                 src="/build/theme/images/preview-7.jpg"> #}
             {#                                        </div> #}
@@ -172,7 +185,7 @@
             {#                                    </a> #}
             {#                                    <a href="" class="flex items-center mt-3 first:mt-0"> #}
             {#                                        <div class="w-7 h-7 image-fit"> #}
-            {#                                            <img alt="Rocketman - HTML Admin Template" #}
+            {#                                            <img alt="IntelHUb" #}
             {#                                                 class="rounded-full" #}
             {#                                                 src="/build/theme/images/preview-5.jpg"> #}
             {#                                        </div> #}
@@ -181,7 +194,7 @@
             {#                                    </a> #}
             {#                                    <a href="" class="flex items-center mt-3 first:mt-0"> #}
             {#                                        <div class="w-7 h-7 image-fit"> #}
-            {#                                            <img alt="Rocketman - HTML Admin Template" #}
+            {#                                            <img alt="IntelHUb" #}
             {#                                                 class="rounded-full" #}
             {#                                                 src="/build/theme/images/preview-11.jpg"> #}
             {#                                        </div> #}
@@ -207,7 +220,7 @@
             {#                        <div class="notification-content__title">Notifications</div> #}
             {#                        <div class="cursor-pointer relative flex "> #}
             {#                            <div class="w-10 h-10 flex-none image-fit mr-1"> #}
-            {#                                <img alt="Rocketman - HTML Admin Template" #}
+            {#                                <img alt="IntelHUb" #}
             {#                                     class="rounded-full" #}
             {#                                     src="/build/theme/images/profile-5.jpg"> #}
             {#                                <div class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600"></div> #}
@@ -220,7 +233,7 @@
             {#                        </div> #}
             {#                        <div class="cursor-pointer relative flex mt-5"> #}
             {#                            <div class="w-10 h-10 flex-none image-fit mr-1"> #}
-            {#                                <img alt="Rocketman - HTML Admin Template" #}
+            {#                                <img alt="IntelHUb" #}
             {#                                     class="rounded-full" #}
             {#                                     src="/build/theme/images/profile-14.jpg"> #}
             {#                                <div class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600"></div> #}
@@ -233,7 +246,7 @@
             {#                        </div> #}
             {#                        <div class="cursor-pointer relative flex mt-5"> #}
             {#                            <div class="w-10 h-10 flex-none image-fit mr-1"> #}
-            {#                                <img alt="Rocketman - HTML Admin Template" #}
+            {#                                <img alt="IntelHUb" #}
             {#                                     class="rounded-full" #}
             {#                                     src="/build/theme/images/profile-3.jpg"> #}
             {#                                <div class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600"></div> #}
@@ -261,40 +274,47 @@
                      aria-expanded="false"
                      data-tw-toggle="dropdown">
                     <div class="w-10 h-10 image-fit">
-                        <img alt="Rocketman - HTML Admin Template"
+                        <img alt="IntelHUb"
                              class="rounded-full border-2 border-white border-opacity-10 shadow-lg"
                              src="/build/theme/images/profile-14.jpg">
                     </div>
                     <div class="hidden md:block ml-3">
-                        <div class="max-w-[7rem] truncate font-medium">Arnold Schwarzenegger</div>
-                        <div class="text-xs text-slate-400">Backend Engineer</div>
+                        <div class="max-w-[7rem] truncate font-medium">{{ app.user.username | default('Guest') }}</div>
+                        <div class="text-xs text-slate-400">[ROLE]</div>
                     </div>
                 </div>
                 <div class="dropdown-menu w-56">
                     <ul class="dropdown-content">
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="user" class="w-4 h-4 mr-2"></i> Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="edit"
-                                                                 class="w-4 h-4 mr-2"></i> Add Account </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="lock"
-                                                                 class="w-4 h-4 mr-2"></i> Reset Password </a>
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="help-circle"
-                                                                 class="w-4 h-4 mr-2"></i> Help </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a href="" class="dropdown-item"> <i data-lucide="toggle-right"
-                                                                 class="w-4 h-4 mr-2"></i> Logout </a>
-                        </li>
+                        {#                        <li> #}
+                        {#                            <a href="" class="dropdown-item"> <i data-lucide="user" class="w-4 h-4 mr-2"></i> Profile #}
+                        {#                            </a> #}
+                        {#                        </li> #}
+                        {#                        <li> #}
+                        {#                            <hr class="dropdown-divider"> #}
+                        {#                        </li> #}
+                        {% if app.user %}
+                            <li>
+                                <a href="{{ path('app_logout') }}"
+                                   class="dropdown-item">
+                                    <i data-lucide="log-out"
+                                       class="w-4 h-4 mr-2"></i> Logout
+                                </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ path('app_login') }}"
+                                   class="dropdown-item">
+                                    <i data-lucide="log-in"
+                                       class="w-4 h-4 mr-2"></i> Login
+                                </a>
+                                <a href="{{ path('app_register') }}"
+                                   class="dropdown-item">
+                                    <i data-lucide="user-plus"
+                                       class="w-4 h-4 mr-2"></i> Sign Up
+                                </a>
+                            </li>
+                        {% endif %}
+
                     </ul>
                 </div>
             </div>
