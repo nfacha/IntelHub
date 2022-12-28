@@ -33,3 +33,7 @@ yarn-error.log
 service-config/pg/pg.env
 
 service-config/pgadmin/pgadmin.env
+
+#theme/Source/
+
+theme/Source/node_modules/
