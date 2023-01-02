@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\AircraftPosition;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -83,5 +84,20 @@ class AircraftPositionRepository extends ServiceEntityRepository
         $query->setParameter('cutoff', $cutoff);
 
         return $query->execute();
+    }
+
+    public function getLastPosition(\App\Entity\Aircraft $aircraft)
+    {
+        try {
+            return $this->createQueryBuilder('p')
+                ->andWhere('p.aircraft = :aircraft')
+                ->setParameter('aircraft', $aircraft)
+                ->orderBy('p.position_at', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        }
     }
 }

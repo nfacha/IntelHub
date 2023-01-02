@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Aircraft;
 use App\Form\AircraftType;
 use App\libs\VRSData;
+use App\Repository\AircraftPositionRepository;
 use App\Repository\AircraftRepository;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -30,13 +31,15 @@ class AircraftController extends AbstractController
     }
 
     #[Route('/{icao}', name: 'app_aircraft_show', methods: ['GET'])]
-    public function show(Aircraft $aircraft, AircraftRepository $aircraftRepository): Response
+    public function show(Aircraft $aircraft, AircraftRepository $aircraftRepository, AircraftPositionRepository $aircraftPositionRepository): Response
     {
         if ($aircraft->updatePhotoFromPlaneSpotters()) {
             $aircraftRepository->save($aircraft, true);
         }
+        $lastAircraftPosition = $aircraftPositionRepository->getLastPosition($aircraft);
         return $this->render('aircraft/show.html.twig', [
             'aircraft' => $aircraft,
+            'lastAircraftPosition' => $lastAircraftPosition,
         ]);
     }
 
