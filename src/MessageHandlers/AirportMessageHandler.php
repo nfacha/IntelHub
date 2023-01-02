@@ -13,7 +13,7 @@ class AirportMessageHandler implements MessageHandlerInterface
 
     public function __construct(AirportRepository $airportRepository)
     {
-        $this->aircraftRepository = $airportRepository;
+        $this->airportRepository = $airportRepository;
 
     }
 
