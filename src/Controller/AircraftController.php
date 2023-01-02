@@ -36,7 +36,7 @@ class AircraftController extends AbstractController
         if ($aircraft->updatePhotoFromPlaneSpotters()) {
             $aircraftRepository->save($aircraft, true);
         }
-        $lastAircraftPosition = $aircraftPositionRepository->getLastPosition($aircraft);
+        $lastAircraftPosition = $aircraftPositionRepository->getLastPosition($aircraft->getIcao());
         return $this->render('aircraft/show.html.twig', [
             'aircraft' => $aircraft,
             'lastAircraftPosition' => $lastAircraftPosition,

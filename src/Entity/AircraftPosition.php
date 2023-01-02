@@ -39,9 +39,6 @@ class AircraftPosition
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $callsign = null;
 
-    #[ORM\OneToOne(mappedBy: 'last_position', cascade: ['persist', 'remove'])]
-    private ?Aircraft $aircraft = null;
-
     #[ORM\Column(length: 255)]
     private ?string $icao = null;
 

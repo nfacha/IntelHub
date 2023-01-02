@@ -62,446 +62,455 @@
 {#    #}{#    {{ include('aircraft/_delete_form.html.twig') }} #}
 {# {% endblock %} #}
 {% block body %}
-    <div class="grid grid-cols-12 gap-5 mt-5">
-        <!-- BEGIN: Profile Cover -->
-        <div class="col-span-12">
-            <div class="box intro-y px-3 pt-3 pb-5">
-                <div class="image-fit h-80 before:content-[''] before:absolute before:w-full before:h-full before:bg-gradient-to-b from-black/20 to-black before:rounded-md before:z-10 ">
-{#                    <img alt=""#}
-{#                         class="rounded-md md:object-[0px_-170px]"#}
-{#                         src="dist/images/preview-16.jpg">#}
-                </div>
-                <div class="flex flex-col 2xl:flex-row items-center justify-center text-center 2xl:text-left">
-                    <div class="-mt-20 2xl:-mt-10 2xl:ml-10 z-20">
-                        <div class="image-fit w-40 h-40 rounded-full border-4 border-white shadow-md overflow-hidden">
-                            {% if aircraft.pictureUrl %}
-                                <img alt=""
-                                     src="{{ aircraft.pictureUrl }}">
-                            {% else %}
-                                <img alt=""
-                                     src="https://via.placeholder.com/150">
-                            {% endif %}
-                        </div>
-                    </div>
-                    <div class="2xl:ml-5">
-                        <h2 class="text-2xl mt-5 font-medium">
-                            {% if aircraft.registration %}
-                                {{ aircraft.registration }}
-                            {% else %}
-                                ICAO: {{ aircraft.icao }} (Registration Unknown)
-                            {% endif %}
-                            {{ aircraft.registration}} (<code>{{ aircraft.icao }}</code>) </h2>
-                        <div class="mt-2 text-slate-500 flex items-center justify-center 2xl:justify-start">
-                            <i data-lucide="briefcase"
-                               class="w-4 h-4 mr-2"></i> {{ aircraft.model }} ({{ aircraft.manufacturer }})
-                        </div>
-                        <div class="mt-2 text-slate-500 flex items-center justify-center 2xl:justify-start">
-                            <i data-lucide="camera"
-                               class="w-4 h-4 mr-2"></i> {{ aircraft.photoAuthor | default('') }}
-                            {% if aircraft.photoLink %}
-                                <a href="{{ aircraft.photoLink }}" target="_blank">
-                                    <i data-lucide="external-link"
-                                       class="w-4 h-4 mr-2"></i>
-                                </a>
-                            {% endif %}
-
-                        </div>
-                    </div>
-                    <div class="mx-auto grid grid-cols-3 gap-y-2 md:gap-y-0 gap-x-5 h-20 mt-5 2xl:border-l 2xl:border-r border-dashed border-slate-200 px-10 mb-6 2xl:mb-0">
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
-                            <i data-lucide="map-pin"
-                               class="w-4 h-4 mr-2"></i> {{ aircraft.country }}
-                        </div>
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
-                            <i data-lucide="swords"
-                               class="w-4 h-4 mr-2"></i> {{ aircraft.isMilitary ? 'Military' : 'Civilian' }}
-                        </div>
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
-                            <i data-lucide="briefcase"
-                               class="w-4 h-4 mr-2"></i> {{ aircraft.operator }}
-                        </div>
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
-                            <i data-lucide="calendar"
-                               class="w-4 h-4 mr-2"></i> {{ aircraft.yearBuild }}
-                        </div>
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
-                            <i data-lucide="hash"
-                               class="w-4 h-4 mr-2"></i> {{ aircraft.serial }}
-                        </div>
-                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
-                            <i data-lucide="fingerprint"
-                               class="w-4 h-4 mr-2"></i> {{ aircraft.icao }}
-                        </div>
-                    </div>
-                    <div class="flex 2xl:mr-10 mt-5">
-                        <button class="btn btn-primary mr-2 w-32">
-                            <i class="w-4 h-4 mr-2"
-                               data-lucide="user-plus"></i> Follow
-                        </button>
-                        {% if is_granted('ROLE_ADMIN', app.user) %}
-                            <a class="btn btn-outline-secondary w-32"
-                               href="{{ path('app_aircraft_edit', {'icao': aircraft.icao}) }}">
-                                <i class="w-4 h-4 mr-2"
-                                   data-lucide="pencil"></i> Edit
-                            </a>
-                            <a class="btn btn-outline-secondary w-32"
-                               href="{{ path('app_aircraft_update_details', {'icao': aircraft.icao}) }}">
-                                <i class="w-4 h-4 mr-2"
-                                   data-lucide="refresh-cw"></i> Refresh Static Data
-                            </a>
-
+<div class="grid grid-cols-12 gap-5 mt-5">
+    <!-- BEGIN: Profile Cover -->
+    <div class="col-span-12">
+        <div class="box intro-y px-3 pt-3 pb-5">
+            <div class="image-fit h-80 before:content-[''] before:absolute before:w-full before:h-full before:bg-gradient-to-b from-black/20 to-black before:rounded-md before:z-10 ">
+                {#                    <img alt="" #}
+                {#                         class="rounded-md md:object-[0px_-170px]" #}
+                {#                         src="dist/images/preview-16.jpg"> #}
+            </div>
+            <div class="flex flex-col 2xl:flex-row items-center justify-center text-center 2xl:text-left">
+                <div class="-mt-20 2xl:-mt-10 2xl:ml-10 z-20">
+                    <div class="image-fit w-40 h-40 rounded-full border-4 border-white shadow-md overflow-hidden">
+                        {% if aircraft.pictureUrl %}
+                            <img alt=""
+                                 src="{{ aircraft.pictureUrl }}">
+                        {% else %}
+                            <img alt=""
+                                 src="https://via.placeholder.com/150">
                         {% endif %}
                     </div>
                 </div>
+                <div class="2xl:ml-5">
+                    <h2 class="text-2xl mt-5 font-medium">
+                        {% if aircraft.registration %}
+                            {{ aircraft.registration }}
+                        {% else %}
+                            ICAO: {{ aircraft.icao }} (Registration Unknown)
+                        {% endif %}
+                        {{ aircraft.registration }} (<code>{{ aircraft.icao }}</code>)
+                    </h2>
+                    <div class="mt-2 text-slate-500 flex items-center justify-center 2xl:justify-start">
+                        <i data-lucide="briefcase"
+                           class="w-4 h-4 mr-2"></i> {{ aircraft.model }} ({{ aircraft.manufacturer }})
+                    </div>
+                    <div class="mt-2 text-slate-500 flex items-center justify-center 2xl:justify-start">
+                        <i data-lucide="camera"
+                           class="w-4 h-4 mr-2"></i> {{ aircraft.photoAuthor | default('') }}
+                        {% if aircraft.photoLink %}
+                            <a href="{{ aircraft.photoLink }}"
+                               target="_blank">
+                                <i data-lucide="external-link"
+                                   class="w-4 h-4 mr-2"></i>
+                            </a>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="mx-auto grid grid-cols-3 gap-y-2 md:gap-y-0 gap-x-5 h-20 mt-5 2xl:border-l 2xl:border-r border-dashed border-slate-200 px-10 mb-6 2xl:mb-0">
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                        <i data-lucide="map-pin"
+                           class="w-4 h-4 mr-2"></i> {{ aircraft.country }}
+                    </div>
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                        <i data-lucide="swords"
+                           class="w-4 h-4 mr-2"></i> {{ aircraft.isMilitary ? 'Military' : 'Civilian' }}
+                    </div>
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                        <i data-lucide="briefcase"
+                           class="w-4 h-4 mr-2"></i> {{ aircraft.operator }}
+                    </div>
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                        <i data-lucide="calendar"
+                           class="w-4 h-4 mr-2"></i> {{ aircraft.yearBuild }}
+                    </div>
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                        <i data-lucide="hash"
+                           class="w-4 h-4 mr-2"></i> {{ aircraft.serial }}
+                    </div>
+                    <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                        <i data-lucide="fingerprint"
+                           class="w-4 h-4 mr-2"></i> {{ aircraft.icao }}
+                    </div>
+                </div>
+                <div class="flex 2xl:mr-10 mt-5">
+                    <button class="btn btn-primary mr-2 w-32">
+                        <i class="w-4 h-4 mr-2"
+                           data-lucide="user-plus"></i> Follow
+                    </button>
+                    {% if is_granted('ROLE_ADMIN', app.user) %}
+                        <a class="btn btn-outline-secondary w-32"
+                           href="{{ path('app_aircraft_edit', {'icao': aircraft.icao}) }}">
+                            <i class="w-4 h-4 mr-2"
+                               data-lucide="pencil"></i> Edit
+                        </a>
+                        <a class="btn btn-outline-secondary w-32"
+                           href="{{ path('app_aircraft_update_details', {'icao': aircraft.icao}) }}">
+                            <i class="w-4 h-4 mr-2"
+                               data-lucide="refresh-cw"></i> Refresh Static Data
+                        </a>
+
+                    {% endif %}
+                </div>
             </div>
         </div>
-{#        <!-- END: Profile Cover -->#}
-{#        <!-- BEGIN: Profile Content -->#}
-{#        <div class="col-span-12 xl:col-span-8">#}
-{#            <div class="box intro-y p-5">#}
-{#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">#}
-{#                    <div class="font-medium truncate text-base">Profile</div>#}
-{#                    <i data-lucide="edit"#}
-{#                       class="w-4 h-4 text-slate-500 ml-auto"></i>#}
-{#                </div>#}
-{#                <div class="leading-relaxed">#}
-{#                    <p class="mt-5">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#039;Content here, content here&#039;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#039;lorem ipsum&#039; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>#}
-{#                    <p class="mt-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#039;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>#}
-{#                    <button class="btn btn-outline-secondary border-slate-200/60 w-full flex mt-5">#}
-{#                        <i class="w-4 h-4 mr-2"#}
-{#                           data-lucide="chevron-down"></i> View More#}
-{#                    </button>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="box intro-y p-5 mt-5">#}
-{#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">#}
-{#                    <div class="font-medium truncate text-base">Experience</div>#}
-{#                    <i data-lucide="edit"#}
-{#                       class="w-4 h-4 text-slate-500 ml-auto"></i>#}
-{#                </div>#}
-{#                <div>#}
-{#                    <div class="flex border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div class="mr-5">#}
-{#                            <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">SU</div>#}
-{#                        </div>#}
-{#                        <div>#}
-{#                            <div class="font-medium text-base">Left4code Express</div>#}
-{#                            <div class="mt-1 text-slate-500">Senior Frontend Engineer</div>#}
-{#                            <div class="mt-1">2005 - 2009 • 4 yrs</div>#}
-{#                            <ul class="mt-5 sm:mt-3 list-disc -ml-16 sm:ml-3">#}
-{#                                <li class="mb-1 last:mb-0">Work across the full stack, building highly scalable distributed solutions that enable positive user experiences and measurable business growth.</li>#}
-{#                                <li class="mb-1 last:mb-0">Develop new features and infrastructure development in support of rapidly emerging business and project requirements.</li>#}
-{#                                <li class="mb-1 last:mb-0">Assume leadership of new projects from conceptualization to deployment.</li>#}
-{#                                <li class="mb-1 last:mb-0">Ensure application performance, uptime, and scale, maintaining high standards of code quality and thoughtful application design.</li>#}
-{#                                <li class="mb-1 last:mb-0">Work with agile development methodologies, adhering to best practices and pursuing continued learning opportunities.</li>#}
-{#                            </ul>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="flex border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div class="mr-5">#}
-{#                            <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">UO</div>#}
-{#                        </div>#}
-{#                        <div>#}
-{#                            <div class="font-medium text-base">Freelancer</div>#}
-{#                            <div class="mt-1 text-slate-500">Fullstack Engineer</div>#}
-{#                            <div class="mt-1">2010 - 2014 • 4 yrs</div>#}
-{#                            <ul class="mt-5 sm:mt-3 list-disc -ml-16 sm:ml-3">#}
-{#                                <li class="mb-1 last:mb-0">Participate in all aspects of agile software development including design, implementation, and deployment</li>#}
-{#                                <li class="mb-1 last:mb-0">Architect and provide guidance on building end-to-end systems optimized for speed and scale</li>#}
-{#                                <li class="mb-1 last:mb-0">Work primarily in Ruby, Java/JRuby, React, and JavaScript</li>#}
-{#                                <li class="mb-1 last:mb-0">Engage with inspiring designers and front end engineers, and collaborate with leading back end engineers as we create reliable APIs</li>#}
-{#                                <li class="mb-1 last:mb-0">Collaborate across time zones via Slack, GitHub comments, documents, and frequent video conferences</li>#}
-{#                            </ul>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <button class="btn btn-outline-secondary border-slate-200/60 w-full flex mt-5">#}
-{#                    <i class="w-4 h-4 mr-2"#}
-{#                       data-lucide="chevron-down"></i> View More#}
-{#                </button>#}
-{#            </div>#}
-{#            <div class="box intro-y p-5 mt-5">#}
-{#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">#}
-{#                    <div class="font-medium truncate text-base">Skills</div>#}
-{#                    <i data-lucide="edit"#}
-{#                       class="w-4 h-4 text-slate-500 ml-auto"></i>#}
-{#                </div>#}
-{#                <div class="flex flex-wrap">#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Ruby</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Java/JRuby</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">React</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">JavaScript</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Typescript</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Bootstrap 5</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">TailwindCSS 3</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Vuejs</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Ruby</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Java/JRuby</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">React</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">JavaScript</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Typescript</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Bootstrap 5</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">TailwindCSS 3</div>#}
-{#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Vuejs</div>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="box intro-y p-5 mt-5">#}
-{#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">#}
-{#                    <div class="font-medium truncate text-base">Interests</div>#}
-{#                    <i data-lucide="edit"#}
-{#                       class="w-4 h-4 text-slate-500 ml-auto"></i>#}
-{#                </div>#}
-{#                <div class="grid grid-cols-12 gap-y-7">#}
-{#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex">#}
-{#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">SV</div>#}
-{#                        <div class="ml-5">#}
-{#                            <div class="font-medium text-base">Svelte</div>#}
-{#                            <div class="mt-1 text-slate-500">4,468,655 followers</div>#}
-{#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2">#}
-{#                                <i class="w-4 h-4 mr-1"#}
-{#                                   data-lucide="plus"></i> Follow#}
-{#                            </button>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex">#}
-{#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">AN</div>#}
-{#                        <div class="ml-5">#}
-{#                            <div class="font-medium text-base">Angular</div>#}
-{#                            <div class="mt-1 text-slate-500">1,468,655 followers</div>#}
-{#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2">#}
-{#                                <i class="w-4 h-4 mr-1"#}
-{#                                   data-lucide="plus"></i> Follow#}
-{#                            </button>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex">#}
-{#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">TW</div>#}
-{#                        <div class="ml-5">#}
-{#                            <div class="font-medium text-base">TailwindCSS</div>#}
-{#                            <div class="mt-1 text-slate-500">45,468,655 followers</div>#}
-{#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2">#}
-{#                                <i class="w-4 h-4 mr-1"#}
-{#                                   data-lucide="plus"></i> Follow#}
-{#                            </button>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex">#}
-{#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">LV</div>#}
-{#                        <div class="ml-5">#}
-{#                            <div class="font-medium text-base">Laravel</div>#}
-{#                            <div class="mt-1 text-slate-500">4,468,655 followers</div>#}
-{#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2">#}
-{#                                <i class="w-4 h-4 mr-1"#}
-{#                                   data-lucide="plus"></i> Follow#}
-{#                            </button>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex">#}
-{#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">RT</div>#}
-{#                        <div class="ml-5">#}
-{#                            <div class="font-medium text-base">React</div>#}
-{#                            <div class="mt-1 text-slate-500">1,468,655 followers</div>#}
-{#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2">#}
-{#                                <i class="w-4 h-4 mr-1"#}
-{#                                   data-lucide="plus"></i> Follow#}
-{#                            </button>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex">#}
-{#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">BS</div>#}
-{#                        <div class="ml-5">#}
-{#                            <div class="font-medium text-base">Bootstrap</div>#}
-{#                            <div class="mt-1 text-slate-500">45,468,655 followers</div>#}
-{#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2">#}
-{#                                <i class="w-4 h-4 mr-1"#}
-{#                                   data-lucide="plus"></i> Follow#}
-{#                            </button>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#        <!-- END: Profile Content -->#}
-{#        <!-- BEGIN: Profile Side Menu -->#}
-{#        <div class="col-span-12 xl:col-span-4">#}
-{#            <div class="box intro-y p-5">#}
-{#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">#}
-{#                    <div class="font-medium truncate text-base">Education</div>#}
-{#                    <i data-lucide="edit"#}
-{#                       class="w-4 h-4 text-slate-500 ml-auto"></i>#}
-{#                </div>#}
-{#                <div>#}
-{#                    <div class="flex border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">SU</div>#}
-{#                        <div class="ml-5">#}
-{#                            <div class="font-medium text-base">Stanford University</div>#}
-{#                            <div class="mt-1 text-slate-500">Computer Science and Engineering</div>#}
-{#                            <div class="mt-1">2005 - 2009 • 4 yrs</div>#}
-{#                            <div class="mt-1">California, USA</div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="flex border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">UO</div>#}
-{#                        <div class="ml-5">#}
-{#                            <div class="font-medium text-base">University of Oxford</div>#}
-{#                            <div class="mt-1 text-slate-500">Computer Science and Engineering</div>#}
-{#                            <div class="mt-1">2010 - 2014 • 4 yrs</div>#}
-{#                            <div class="mt-1">Oxford, England</div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <button class="btn btn-outline-secondary border-slate-200/60 w-full flex mt-5">#}
-{#                    <i class="w-4 h-4 mr-2"#}
-{#                       data-lucide="chevron-down"></i> View More#}
-{#                </button>#}
-{#            </div>#}
-{#            <div class="box intro-y p-5 mt-5">#}
-{#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">#}
-{#                    <div class="font-medium truncate text-base">Followers (102)</div>#}
-{#                </div>#}
-{#                <div>#}
-{#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div>#}
-{#                            <div class="w-16 h-16 image-fit">#}
-{#                                <img alt=""#}
-{#                                     class="rounded-full"#}
-{#                                     src="dist/images/profile-14.jpg">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row">#}
-{#                            <div class="mr-auto">#}
-{#                                <div class="font-medium text-base flex items-center">#}
-{#                                    <div class="whitespace-nowrap">Morgan Freeman</div>#}
-{#                                    <div class="mx-1.5">•</div>#}
-{#                                    <a href=""#}
-{#                                       class="text-success text-xs">Follow</a>#}
-{#                                </div>#}
-{#                                <div class="mt-1 text-slate-500">@morganfreeman</div>#}
-{#                            </div>#}
-{#                            <div class="flex">#}
-{#                                <button class="btn btn-outline-secondary py-1 px-2">#}
-{#                                    <i class="w-4 h-4 mr-2"#}
-{#                                       data-lucide="user-check"></i> Friends#}
-{#                                </button>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div>#}
-{#                            <div class="w-16 h-16 image-fit">#}
-{#                                <img alt=""#}
-{#                                     class="rounded-full"#}
-{#                                     src="dist/images/profile-12.jpg">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row">#}
-{#                            <div class="mr-auto">#}
-{#                                <div class="font-medium text-base flex items-center">#}
-{#                                    <div class="whitespace-nowrap">Denzel Washington</div>#}
-{#                                    <div class="mx-1.5">•</div>#}
-{#                                    <a href=""#}
-{#                                       class="text-success text-xs">Follow</a>#}
-{#                                </div>#}
-{#                                <div class="mt-1 text-slate-500">@denzelwashington</div>#}
-{#                            </div>#}
-{#                            <div class="flex">#}
-{#                                <button class="btn btn-outline-secondary py-1 px-2">#}
-{#                                    <i class="w-4 h-4 mr-2"#}
-{#                                       data-lucide="user-check"></i> Friends#}
-{#                                </button>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div>#}
-{#                            <div class="w-16 h-16 image-fit">#}
-{#                                <img alt=""#}
-{#                                     class="rounded-full"#}
-{#                                     src="dist/images/profile-1.jpg">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row">#}
-{#                            <div class="mr-auto">#}
-{#                                <div class="font-medium text-base flex items-center">#}
-{#                                    <div class="whitespace-nowrap">Robert De Niro</div>#}
-{#                                    <div class="mx-1.5">•</div>#}
-{#                                    <a href=""#}
-{#                                       class="text-success text-xs">Follow</a>#}
-{#                                </div>#}
-{#                                <div class="mt-1 text-slate-500">@robertdeniro</div>#}
-{#                            </div>#}
-{#                            <div class="flex">#}
-{#                                <button class="btn btn-outline-secondary py-1 px-2">#}
-{#                                    <i class="w-4 h-4 mr-2"#}
-{#                                       data-lucide="user-check"></i> Friends#}
-{#                                </button>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div>#}
-{#                            <div class="w-16 h-16 image-fit">#}
-{#                                <img alt=""#}
-{#                                     class="rounded-full"#}
-{#                                     src="dist/images/profile-7.jpg">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row">#}
-{#                            <div class="mr-auto">#}
-{#                                <div class="font-medium text-base flex items-center">#}
-{#                                    <div class="whitespace-nowrap">Russell Crowe</div>#}
-{#                                    <div class="mx-1.5">•</div>#}
-{#                                    <a href=""#}
-{#                                       class="text-success text-xs">Follow</a>#}
-{#                                </div>#}
-{#                                <div class="mt-1 text-slate-500">@russellcrowe</div>#}
-{#                            </div>#}
-{#                            <div class="flex">#}
-{#                                <button class="btn btn-outline-secondary py-1 px-2">#}
-{#                                    <i class="w-4 h-4 mr-2"#}
-{#                                       data-lucide="user-check"></i> Friends#}
-{#                                </button>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0">#}
-{#                        <div>#}
-{#                            <div class="w-16 h-16 image-fit">#}
-{#                                <img alt=""#}
-{#                                     class="rounded-full"#}
-{#                                     src="dist/images/profile-7.jpg">#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row">#}
-{#                            <div class="mr-auto">#}
-{#                                <div class="font-medium text-base flex items-center">#}
-{#                                    <div class="whitespace-nowrap">Nicolas Cage</div>#}
-{#                                    <div class="mx-1.5">•</div>#}
-{#                                    <a href=""#}
-{#                                       class="text-success text-xs">Follow</a>#}
-{#                                </div>#}
-{#                                <div class="mt-1 text-slate-500">@nicolascage</div>#}
-{#                            </div>#}
-{#                            <div class="flex">#}
-{#                                <button class="btn btn-outline-secondary py-1 px-2">#}
-{#                                    <i class="w-4 h-4 mr-2"#}
-{#                                       data-lucide="user-check"></i> Friends#}
-{#                                </button>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <button class="btn btn-outline-secondary border-slate-200/60 w-full flex mt-5">#}
-{#                    <i class="w-4 h-4 mr-2"#}
-{#                       data-lucide="chevron-down"></i> View More#}
-{#                </button>#}
-{#            </div>#}
-{#        </div>#}
-{#        <!-- END: Profile Side Menu -->#}
+    </div>
+    {#        <!-- END: Profile Cover --> #}
+    {#        <!-- BEGIN: Profile Content --> #}
+    {#        <div class="col-span-12 xl:col-span-8"> #}
+    {#            <div class="box intro-y p-5"> #}
+    {#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5"> #}
+    {#                    <div class="font-medium truncate text-base">Profile</div> #}
+    {#                    <i data-lucide="edit" #}
+    {#                       class="w-4 h-4 text-slate-500 ml-auto"></i> #}
+    {#                </div> #}
+    {#                <div class="leading-relaxed"> #}
+    {#                    <p class="mt-5">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#039;Content here, content here&#039;, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &#039;lorem ipsum&#039; will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p> #}
+    {#                    <p class="mt-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#039;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> #}
+    {#                    <button class="btn btn-outline-secondary border-slate-200/60 w-full flex mt-5"> #}
+    {#                        <i class="w-4 h-4 mr-2" #}
+    {#                           data-lucide="chevron-down"></i> View More #}
+    {#                    </button> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#            <div class="box intro-y p-5 mt-5"> #}
+    {#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5"> #}
+    {#                    <div class="font-medium truncate text-base">Experience</div> #}
+    {#                    <i data-lucide="edit" #}
+    {#                       class="w-4 h-4 text-slate-500 ml-auto"></i> #}
+    {#                </div> #}
+    {#                <div> #}
+    {#                    <div class="flex border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0"> #}
+    {#                        <div class="mr-5"> #}
+    {#                            <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">SU</div> #}
+    {#                        </div> #}
+    {#                        <div> #}
+    {#                            <div class="font-medium text-base">Left4code Express</div> #}
+    {#                            <div class="mt-1 text-slate-500">Senior Frontend Engineer</div> #}
+    {#                            <div class="mt-1">2005 - 2009 • 4 yrs</div> #}
+    {#                            <ul class="mt-5 sm:mt-3 list-disc -ml-16 sm:ml-3"> #}
+    {#                                <li class="mb-1 last:mb-0">Work across the full stack, building highly scalable distributed solutions that enable positive user experiences and measurable business growth.</li> #}
+    {#                                <li class="mb-1 last:mb-0">Develop new features and infrastructure development in support of rapidly emerging business and project requirements.</li> #}
+    {#                                <li class="mb-1 last:mb-0">Assume leadership of new projects from conceptualization to deployment.</li> #}
+    {#                                <li class="mb-1 last:mb-0">Ensure application performance, uptime, and scale, maintaining high standards of code quality and thoughtful application design.</li> #}
+    {#                                <li class="mb-1 last:mb-0">Work with agile development methodologies, adhering to best practices and pursuing continued learning opportunities.</li> #}
+    {#                            </ul> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                    <div class="flex border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0"> #}
+    {#                        <div class="mr-5"> #}
+    {#                            <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">UO</div> #}
+    {#                        </div> #}
+    {#                        <div> #}
+    {#                            <div class="font-medium text-base">Freelancer</div> #}
+    {#                            <div class="mt-1 text-slate-500">Fullstack Engineer</div> #}
+    {#                            <div class="mt-1">2010 - 2014 • 4 yrs</div> #}
+    {#                            <ul class="mt-5 sm:mt-3 list-disc -ml-16 sm:ml-3"> #}
+    {#                                <li class="mb-1 last:mb-0">Participate in all aspects of agile software development including design, implementation, and deployment</li> #}
+    {#                                <li class="mb-1 last:mb-0">Architect and provide guidance on building end-to-end systems optimized for speed and scale</li> #}
+    {#                                <li class="mb-1 last:mb-0">Work primarily in Ruby, Java/JRuby, React, and JavaScript</li> #}
+    {#                                <li class="mb-1 last:mb-0">Engage with inspiring designers and front end engineers, and collaborate with leading back end engineers as we create reliable APIs</li> #}
+    {#                                <li class="mb-1 last:mb-0">Collaborate across time zones via Slack, GitHub comments, documents, and frequent video conferences</li> #}
+    {#                            </ul> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                </div> #}
+    {#                <button class="btn btn-outline-secondary border-slate-200/60 w-full flex mt-5"> #}
+    {#                    <i class="w-4 h-4 mr-2" #}
+    {#                       data-lucide="chevron-down"></i> View More #}
+    {#                </button> #}
+    {#            </div> #}
+    {#            <div class="box intro-y p-5 mt-5"> #}
+    {#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5"> #}
+    {#                    <div class="font-medium truncate text-base">Skills</div> #}
+    {#                    <i data-lucide="edit" #}
+    {#                       class="w-4 h-4 text-slate-500 ml-auto"></i> #}
+    {#                </div> #}
+    {#                <div class="flex flex-wrap"> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Ruby</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Java/JRuby</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">React</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">JavaScript</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Typescript</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Bootstrap 5</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">TailwindCSS 3</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Vuejs</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Ruby</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Java/JRuby</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">React</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">JavaScript</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Typescript</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Bootstrap 5</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">TailwindCSS 3</div> #}
+    {#                    <div class="px-3 py-1 bg-primary/10 border border-primary/10 rounded-full mr-2 mb-2">Vuejs</div> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#            <div class="box intro-y p-5 mt-5"> #}
+    {#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5"> #}
+    {#                    <div class="font-medium truncate text-base">Interests</div> #}
+    {#                    <i data-lucide="edit" #}
+    {#                       class="w-4 h-4 text-slate-500 ml-auto"></i> #}
+    {#                </div> #}
+    {#                <div class="grid grid-cols-12 gap-y-7"> #}
+    {#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex"> #}
+    {#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">SV</div> #}
+    {#                        <div class="ml-5"> #}
+    {#                            <div class="font-medium text-base">Svelte</div> #}
+    {#                            <div class="mt-1 text-slate-500">4,468,655 followers</div> #}
+    {#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2"> #}
+    {#                                <i class="w-4 h-4 mr-1" #}
+    {#                                   data-lucide="plus"></i> Follow #}
+    {#                            </button> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex"> #}
+    {#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">AN</div> #}
+    {#                        <div class="ml-5"> #}
+    {#                            <div class="font-medium text-base">Angular</div> #}
+    {#                            <div class="mt-1 text-slate-500">1,468,655 followers</div> #}
+    {#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2"> #}
+    {#                                <i class="w-4 h-4 mr-1" #}
+    {#                                   data-lucide="plus"></i> Follow #}
+    {#                            </button> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex"> #}
+    {#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">TW</div> #}
+    {#                        <div class="ml-5"> #}
+    {#                            <div class="font-medium text-base">TailwindCSS</div> #}
+    {#                            <div class="mt-1 text-slate-500">45,468,655 followers</div> #}
+    {#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2"> #}
+    {#                                <i class="w-4 h-4 mr-1" #}
+    {#                                   data-lucide="plus"></i> Follow #}
+    {#                            </button> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex"> #}
+    {#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">LV</div> #}
+    {#                        <div class="ml-5"> #}
+    {#                            <div class="font-medium text-base">Laravel</div> #}
+    {#                            <div class="mt-1 text-slate-500">4,468,655 followers</div> #}
+    {#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2"> #}
+    {#                                <i class="w-4 h-4 mr-1" #}
+    {#                                   data-lucide="plus"></i> Follow #}
+    {#                            </button> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex"> #}
+    {#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">RT</div> #}
+    {#                        <div class="ml-5"> #}
+    {#                            <div class="font-medium text-base">React</div> #}
+    {#                            <div class="mt-1 text-slate-500">1,468,655 followers</div> #}
+    {#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2"> #}
+    {#                                <i class="w-4 h-4 mr-1" #}
+    {#                                   data-lucide="plus"></i> Follow #}
+    {#                            </button> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                    <div class="col-span-12 sm:col-span-6 2xl:col-span-4 flex"> #}
+    {#                        <div class="w-16 h-16 rounded-full bg-slate-200 dark:bg-darkmode-400 flex items-center justify-center text-base font-medium">BS</div> #}
+    {#                        <div class="ml-5"> #}
+    {#                            <div class="font-medium text-base">Bootstrap</div> #}
+    {#                            <div class="mt-1 text-slate-500">45,468,655 followers</div> #}
+    {#                            <button class="btn btn-outline-secondary btn-rounded py-1 px-3 mt-2"> #}
+    {#                                <i class="w-4 h-4 mr-1" #}
+    {#                                   data-lucide="plus"></i> Follow #}
+    {#                            </button> #}
+    {#                        </div> #}
+    {#                    </div> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#        </div> #}
+    {#        <!-- END: Profile Content --> #}
+    {#        <!-- BEGIN: Profile Side Menu --> #}
+    <div class="col-span-12 xl:col-span-4">
+        <div class="box intro-y p-5">
+            <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                <div class="font-medium truncate text-base">Last Location</div>
+
+            </div>
+            <div>
+                {% if lastAircraftPosition is not null %}
+                <div id="mapLastLocation"
+                     style="height: 250px;"></div>
+                <script>
+                    var mapLastLocation = L.map('mapLastLocation').setView([{{ lastAircraftPosition.latitude }}, {{ lastAircraftPosition.longitude }}], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(mapLastLocation);
+                    L.marker([{{ lastAircraftPosition.latitude }}, {{ lastAircraftPosition.longitude }}]).addTo(mapLastLocation)
+                        .bindPopup('Last Location at {{ lastAircraftPosition.positionAt|date('d/m/Y H:i:s') }}')
+                        .openPopup();
+                </script>
+                <div class="text-center mt-5">
+                    <div class="font-medium text-base">{{ lastAircraftPosition.positionAt|date('d/m/Y H:i:s') }}</div>
+                    <div class="text-gray-600">{{ lastAircraftPosition.latitude }}, {{ lastAircraftPosition.longitude }}</div>
+                </div>
+                <div class="flex mt-5">
+                    <a class="btn btn-outline-secondary border-slate-200/60 w-full mr-1 "
+                       href="https://www.google.com/maps/search/?api=1&query={{ lastAircraftPosition.latitude }},{{ lastAircraftPosition.longitude }}"
+                       target="_blank">Open in Google Maps</a>
+
+                </div>
+
+                {% else %}
+                <div class="text-center">
+                    <div class="font-medium text-base">No Location</div>
+                    <div class="mt-1 text-slate-500">No location has been recorded for this aircraft</div>
+                    {% endif %}
+                </div>
+                {#                <button class="btn btn-outline-secondary border-slate-200/60 w-full flex mt-5"> #}
+                {#                    <i class="w-4 h-4 mr-2" #}
+                {#                       data-lucide="chevron-down"></i> View More #}
+                {#                </button> #}
+            </div>
+            {#            <div class="box intro-y p-5 mt-5"> #}
+            {#                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5"> #}
+            {#                    <div class="font-medium truncate text-base">Followers (102)</div> #}
+            {#                </div> #}
+            {#                <div> #}
+            {#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0"> #}
+            {#                        <div> #}
+            {#                            <div class="w-16 h-16 image-fit"> #}
+            {#                                <img alt="" #}
+            {#                                     class="rounded-full" #}
+            {#                                     src="dist/images/profile-14.jpg"> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row"> #}
+            {#                            <div class="mr-auto"> #}
+            {#                                <div class="font-medium text-base flex items-center"> #}
+            {#                                    <div class="whitespace-nowrap">Morgan Freeman</div> #}
+            {#                                    <div class="mx-1.5">•</div> #}
+            {#                                    <a href="" #}
+            {#                                       class="text-success text-xs">Follow</a> #}
+            {#                                </div> #}
+            {#                                <div class="mt-1 text-slate-500">@morganfreeman</div> #}
+            {#                            </div> #}
+            {#                            <div class="flex"> #}
+            {#                                <button class="btn btn-outline-secondary py-1 px-2"> #}
+            {#                                    <i class="w-4 h-4 mr-2" #}
+            {#                                       data-lucide="user-check"></i> Friends #}
+            {#                                </button> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                    </div> #}
+            {#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0"> #}
+            {#                        <div> #}
+            {#                            <div class="w-16 h-16 image-fit"> #}
+            {#                                <img alt="" #}
+            {#                                     class="rounded-full" #}
+            {#                                     src="dist/images/profile-12.jpg"> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row"> #}
+            {#                            <div class="mr-auto"> #}
+            {#                                <div class="font-medium text-base flex items-center"> #}
+            {#                                    <div class="whitespace-nowrap">Denzel Washington</div> #}
+            {#                                    <div class="mx-1.5">•</div> #}
+            {#                                    <a href="" #}
+            {#                                       class="text-success text-xs">Follow</a> #}
+            {#                                </div> #}
+            {#                                <div class="mt-1 text-slate-500">@denzelwashington</div> #}
+            {#                            </div> #}
+            {#                            <div class="flex"> #}
+            {#                                <button class="btn btn-outline-secondary py-1 px-2"> #}
+            {#                                    <i class="w-4 h-4 mr-2" #}
+            {#                                       data-lucide="user-check"></i> Friends #}
+            {#                                </button> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                    </div> #}
+            {#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0"> #}
+            {#                        <div> #}
+            {#                            <div class="w-16 h-16 image-fit"> #}
+            {#                                <img alt="" #}
+            {#                                     class="rounded-full" #}
+            {#                                     src="dist/images/profile-1.jpg"> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row"> #}
+            {#                            <div class="mr-auto"> #}
+            {#                                <div class="font-medium text-base flex items-center"> #}
+            {#                                    <div class="whitespace-nowrap">Robert De Niro</div> #}
+            {#                                    <div class="mx-1.5">•</div> #}
+            {#                                    <a href="" #}
+            {#                                       class="text-success text-xs">Follow</a> #}
+            {#                                </div> #}
+            {#                                <div class="mt-1 text-slate-500">@robertdeniro</div> #}
+            {#                            </div> #}
+            {#                            <div class="flex"> #}
+            {#                                <button class="btn btn-outline-secondary py-1 px-2"> #}
+            {#                                    <i class="w-4 h-4 mr-2" #}
+            {#                                       data-lucide="user-check"></i> Friends #}
+            {#                                </button> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                    </div> #}
+            {#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0"> #}
+            {#                        <div> #}
+            {#                            <div class="w-16 h-16 image-fit"> #}
+            {#                                <img alt="" #}
+            {#                                     class="rounded-full" #}
+            {#                                     src="dist/images/profile-7.jpg"> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row"> #}
+            {#                            <div class="mr-auto"> #}
+            {#                                <div class="font-medium text-base flex items-center"> #}
+            {#                                    <div class="whitespace-nowrap">Russell Crowe</div> #}
+            {#                                    <div class="mx-1.5">•</div> #}
+            {#                                    <a href="" #}
+            {#                                       class="text-success text-xs">Follow</a> #}
+            {#                                </div> #}
+            {#                                <div class="mt-1 text-slate-500">@russellcrowe</div> #}
+            {#                            </div> #}
+            {#                            <div class="flex"> #}
+            {#                                <button class="btn btn-outline-secondary py-1 px-2"> #}
+            {#                                    <i class="w-4 h-4 mr-2" #}
+            {#                                       data-lucide="user-check"></i> Friends #}
+            {#                                </button> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                    </div> #}
+            {#                    <div class="flex items-center border-b border-slate-200 border-dashed pb-5 mb-5 last:border-b-0 last:pb-0 last:mb-0"> #}
+            {#                        <div> #}
+            {#                            <div class="w-16 h-16 image-fit"> #}
+            {#                                <img alt="" #}
+            {#                                     class="rounded-full" #}
+            {#                                     src="dist/images/profile-7.jpg"> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                        <div class="w-full ml-5 flex 2xl:items-center gap-y-3 flex-col 2xl:flex-row"> #}
+            {#                            <div class="mr-auto"> #}
+            {#                                <div class="font-medium text-base flex items-center"> #}
+            {#                                    <div class="whitespace-nowrap">Nicolas Cage</div> #}
+            {#                                    <div class="mx-1.5">•</div> #}
+            {#                                    <a href="" #}
+            {#                                       class="text-success text-xs">Follow</a> #}
+            {#                                </div> #}
+            {#                                <div class="mt-1 text-slate-500">@nicolascage</div> #}
+            {#                            </div> #}
+            {#                            <div class="flex"> #}
+            {#                                <button class="btn btn-outline-secondary py-1 px-2"> #}
+            {#                                    <i class="w-4 h-4 mr-2" #}
+            {#                                       data-lucide="user-check"></i> Friends #}
+            {#                                </button> #}
+            {#                            </div> #}
+            {#                        </div> #}
+            {#                    </div> #}
+            {#                </div> #}
+            {#                <button class="btn btn-outline-secondary border-slate-200/60 w-full flex mt-5"> #}
+            {#                    <i class="w-4 h-4 mr-2" #}
+            {#                       data-lucide="chevron-down"></i> View More #}
+            {#                </button> #}
+            {#            </div> #}
+        </div>
+        <!-- END: Profile Side Menu -->
     </div>
 
 
-
-
     {#    {{ include('aircraft/_delete_form.html.twig') }} #}
-{% endblock %}
+    {% endblock %}
