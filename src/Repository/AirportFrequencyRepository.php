@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Airport;
 use App\Entity\AirportFrequency;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -63,4 +64,17 @@ class AirportFrequencyRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function updateFrequency(array $row)
+    {
+        $frequency = $this->findOneBy(['external_id' => $row[0]]);
+        if (!$frequency) {
+            $frequecy = new AirportFrequency();
+            $frequecy->setExternalId($row[0]);
+            $frequency->setAirport($this->getEntityManager()->getRepository(Airport::class)->findOneBy(['external_id' => $row[1]]));
+        }
+        $frequency->setType($row[3]);
+        $frequency->setDescription($row[4]);
+        $frequency->setFrequency($row[5]);
+        $this->save($frequency, true);
+    }
 }

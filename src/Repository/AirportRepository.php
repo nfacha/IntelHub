@@ -32,7 +32,7 @@ class AirportRepository extends ServiceEntityRepository
 
     public function updateAirport(mixed $row)
     {
-        $airport = $this->findOneBy(['icao' => $row[0]]);
+        $airport = $this->findOneBy(['external_id' => $row[0]]);
         if (!$airport) {
             $airport = new Airport();
             $airport->setExternalId($row[0]);

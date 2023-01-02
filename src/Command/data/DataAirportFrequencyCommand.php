@@ -2,7 +2,7 @@
 
 namespace App\Command\data;
 
-use App\Messages\AirportUpdateMessage;
+use App\Messages\AirportFrequencyUpdateMessage;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -10,11 +10,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
-    name: 'data:airport',
+    name: 'data:airport:frequency',
     description: 'Update Airport data',
     hidden: false,
 )]
-class DataAirportsCommand extends Command
+class DataAirportFrequencyCommand extends Command
 {
     private $messageBus;
 
@@ -28,13 +28,13 @@ class DataAirportsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('Updating Airport data');
-        $url = 'https://davidmegginson.github.io/ourairports-data/airports.csv';
+        $output->writeln('Updating Airport Frequency data');
+        $url = 'https://davidmegginson.github.io/ourairports-data/airport-frequencies.csv';
         $content = file_get_contents($url);
         $csv = array_map('str_getcsv', explode("\n", $content));
         array_shift($csv);
         foreach ($csv as $row) {
-            $msg = new AirportUpdateMessage($row);
+            $msg = new AirportFrequencyUpdateMessage($row);
             $this->messageBus->dispatch($msg);
         }
         return Command::SUCCESS;
