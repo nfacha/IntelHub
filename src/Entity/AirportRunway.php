@@ -34,6 +34,9 @@ class AirportRunway
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $he_ident = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $external_id = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +122,18 @@ class AirportRunway
     public function setHeIdent(?string $he_ident): self
     {
         $this->he_ident = $he_ident;
+
+        return $this;
+    }
+
+    public function getExternalId(): ?int
+    {
+        return $this->external_id;
+    }
+
+    public function setExternalId(?int $external_id): self
+    {
+        $this->external_id = $external_id;
 
         return $this;
     }

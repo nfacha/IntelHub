@@ -24,6 +24,7 @@ framework:
             App\Messages\VRSDataUpdateMessage: async
             App\Messages\AirportUpdateMessage: async
             App\Messages\AirportFrequencyUpdateMessage: async
+            App\Messages\AirportRunwayUpdateMessage: async
 
             # Route your messages to the transports
             # 'App\Message\YourMessage': async

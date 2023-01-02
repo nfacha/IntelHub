@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Airport;
 use App\Entity\AirportRunway;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -63,4 +64,22 @@ class AirportRunwayRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function updateRunway(array $row)
+    {
+        $runway = $this->findOneBy(['external_id' => $row[0]]);
+        if (!$runway) {
+            $runway = new AirportRunway();
+            $runway->setExternalId($row[0]);
+            $runway->setAirport($this->getEntityManager()->getRepository(Airport::class)->findOneBy(['external_id' => $row[1]]));
+        }
+        $runway->setLenghtFt($row[3]);
+        $runway->setWidthFt($row[4]);
+        $runway->setSurface($row[5]);
+        $runway->setLighted($row[6] == 1);//intentional
+        $runway->setClosed($row[7] == 1);//intentional
+        $runway->setLeIdent($row[8]);
+        $runway->setHeIdent($row[14]);
+        $this->save($runway, true);
+    }
 }
