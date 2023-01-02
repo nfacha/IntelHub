@@ -71,7 +71,11 @@ class AirportRunwayRepository extends ServiceEntityRepository
         if (!$runway) {
             $runway = new AirportRunway();
             $runway->setExternalId($row[0]);
-            $runway->setAirport($this->getEntityManager()->getRepository(Airport::class)->findOneBy(['external_id' => $row[1]]));
+            $airport = $this->getEntityManager()->getRepository(Airport::class)->findOneBy(['external_id' => $row[1]]);
+            if (!$airport) {
+                return;
+            }
+            $runway->setAirport($airport);
         }
         $runway->setLenghtFt($row[3]);
         $runway->setWidthFt($row[4]);

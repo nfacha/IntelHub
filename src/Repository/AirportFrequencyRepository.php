@@ -70,7 +70,11 @@ class AirportFrequencyRepository extends ServiceEntityRepository
         if (!$frequency) {
             $frequecy = new AirportFrequency();
             $frequecy->setExternalId($row[0]);
-            $frequency->setAirport($this->getEntityManager()->getRepository(Airport::class)->findOneBy(['external_id' => $row[1]]));
+            $airport = $this->getEntityManager()->getRepository(Airport::class)->findOneBy(['external_id' => $row[1]]);
+            if (!$airport) {
+                return;
+            }
+            $frequency->setAirport($airport);
         }
         $frequency->setType($row[3]);
         $frequency->setDescription($row[4]);

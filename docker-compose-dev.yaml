@@ -6,6 +6,7 @@ services:
       - ./service-config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./service-config/nginx/sites:/etc/nginx/conf.d:ro
       - ./.env:/var/www/intelhub/.env:ro
+      - ./:/var/www/intelhub
     ports:
       - "80:80"
     depends_on:
@@ -19,6 +20,7 @@ services:
       - ./service-config/nginx/sites:/etc/nginx/conf.d:ro
       - ./.env:/var/www/intelhub/.env:ro
       - ./service-config/supervisor/supervisord-worker.conf:/etc/supervisor/conf.d/supervisord.conf:ro
+      - ./:/var/www/intelhub
     ports:
       - "5000-5100:5000-5100"
     depends_on:
