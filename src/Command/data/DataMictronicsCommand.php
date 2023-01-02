@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\data;
 
 use App\Messages\MictronicsFileMessage;
 use App\Repository\AircraftRepository;

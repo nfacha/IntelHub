@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\clean;
 
 use App\Repository\AircraftPositionRepository;
 use Exception;
@@ -11,11 +11,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 #[AsCommand(
-    name: 'clean:all-tracks',
+    name: 'clean:tracks',
     description: 'Clean old tracks',
     hidden: false,
 )]
-class CleanAllTracksCommand extends Command
+class CleanOldTracksCommand extends Command
 {
     private $aircraftPositionRepository;
     private $messageBus;
@@ -36,10 +36,7 @@ class CleanAllTracksCommand extends Command
         $days = 7;
 
         $output->writeln('Cleaning tracks older than ' . $days . ' days');
-        $total = $this->aircraftPositionRepository->createQueryBuilder('p')
-            ->delete()
-            ->getQuery()
-            ->execute();
+        $total = $this->aircraftPositionRepository->deleteOldPositions(30);
         $output->writeln('Deleted ' . $total . ' tracks');
         return Command::SUCCESS;
     }
