@@ -38,10 +38,14 @@ class AircraftController extends AbstractController
         }
         $lastAircraftPosition = $aircraftPositionRepository->getLastPosition($aircraft->getIcao());
         $isLiveTracking = $lastAircraftPosition && $lastAircraftPosition->getPositionAt() > new \DateTimeImmutable('-5 minutes');
+        //seconds since last seen
+        $secondsSinceLastSeen = $lastAircraftPosition ? time() - $lastAircraftPosition->getPositionAt()->getTimestamp() : 0;
+        $lastSeenString = $secondsSinceLastSeen <= 90 ? "$secondsSinceLastSeen seconds ago" : ($secondsSinceLastSeen / 60) . ' minutes ago';
         return $this->render('aircraft/show.html.twig', [
             'aircraft' => $aircraft,
             'lastAircraftPosition' => $lastAircraftPosition,
             'isLiveTracking' => $isLiveTracking,
+            'lastSeen' => $lastSeenString,
         ]);
     }
 

@@ -330,8 +330,7 @@
             <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                 <div class="font-medium truncate text-base">Last Location</div>
                 {% if isLiveTracking %}
-                    <div class="ml-auto text-xs truncate text-white font-bold bg-green-600 p-1 rounded"
-                         title="Last position {{ lastAircraftPosition.secondsAgo <= 90 ?  lastAircraftPosition.secondsAgo :  lastAircraftPosition.secondsAgo/60 }} minutes ago">Live Tracking
+                    <div class="ml-auto text-xs truncate text-white font-bold bg-green-600 p-1 rounded">Live Tracking ({{ lastSeen }})
                     </div>
 
                 {% else %}
@@ -356,10 +355,6 @@
                         .bindPopup('Last Location at {{ lastAircraftPosition.positionAt|date('d/m/Y H:i:s') }}')
                         .openPopup();
                 </script>
-                <div class="text-center mt-5">
-                    <div class="font-medium text-base">{{ lastAircraftPosition.positionAt|date('d/m/Y H:i:s') }}</div>
-                    <div class="text-gray-600">{{ lastAircraftPosition.latitude }}, {{ lastAircraftPosition.longitude }}</div>
-                </div>
                 <div class="flex mt-5">
                     <a class="btn btn-outline-secondary border-slate-200/60 w-full mr-1 "
                        href="https://www.google.com/maps/search/?api=1&query={{ lastAircraftPosition.latitude }},{{ lastAircraftPosition.longitude }}"
