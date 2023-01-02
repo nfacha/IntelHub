@@ -81,7 +81,6 @@ class AirportRunwayRepository extends ServiceEntityRepository
         $runway->setWidthFt($row[4]);
         $runway->setSurface($row[5]);
         $runway->setLighted($row[6] == 1);//intentional
-        $runway->setClosed($row[7] == 1);//intentional
         $runway->setLeIdent($row[8]);
         $runway->setHeIdent($row[14]);
         $this->save($runway, true);
