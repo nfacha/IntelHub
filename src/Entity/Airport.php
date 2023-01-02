@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AirportRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,18 @@ class Airport
 
     #[ORM\Column(nullable: true)]
     private ?int $external_id = null;
+
+    #[ORM\OneToMany(mappedBy: 'airport', targetEntity: AirportFrequency::class, orphanRemoval: true)]
+    private Collection $airportFrequencies;
+
+    #[ORM\OneToMany(mappedBy: 'airport', targetEntity: AirportRunway::class)]
+    private Collection $airportRunways;
+
+    public function __construct()
+    {
+        $this->airportFrequencies = new ArrayCollection();
+        $this->airportRunways = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -165,6 +179,66 @@ class Airport
     public function setExternalId(?int $external_id): self
     {
         $this->external_id = $external_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AirportFrequency>
+     */
+    public function getAirportFrequencies(): Collection
+    {
+        return $this->airportFrequencies;
+    }
+
+    public function addAirportFrequency(AirportFrequency $airportFrequency): self
+    {
+        if (!$this->airportFrequencies->contains($airportFrequency)) {
+            $this->airportFrequencies->add($airportFrequency);
+            $airportFrequency->setAirport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAirportFrequency(AirportFrequency $airportFrequency): self
+    {
+        if ($this->airportFrequencies->removeElement($airportFrequency)) {
+            // set the owning side to null (unless already changed)
+            if ($airportFrequency->getAirport() === $this) {
+                $airportFrequency->setAirport(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AirportRunway>
+     */
+    public function getAirportRunways(): Collection
+    {
+        return $this->airportRunways;
+    }
+
+    public function addAirportRunway(AirportRunway $airportRunway): self
+    {
+        if (!$this->airportRunways->contains($airportRunway)) {
+            $this->airportRunways->add($airportRunway);
+            $airportRunway->setAirport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAirportRunway(AirportRunway $airportRunway): self
+    {
+        if ($this->airportRunways->removeElement($airportRunway)) {
+            // set the owning side to null (unless already changed)
+            if ($airportRunway->getAirport() === $this) {
+                $airportRunway->setAirport(null);
+            }
+        }
 
         return $this;
     }
