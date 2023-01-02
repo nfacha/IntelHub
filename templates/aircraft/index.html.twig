@@ -7,7 +7,7 @@
 
     <table class="table-auto w-full">
         <thead>
-        <tr class="bg-gray-300">
+        <tr>
             <th class="px-4 py-2 w-1/4">ICAO</th>
             <th class="px-4 py-2 w-1/4">Registration</th>
             <th class="px-4 py-2 w-1/4">Model</th>
@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         {% for aircraft in aircrafts %}
-            <tr class="bg-gray-100 text-center">
+            <tr class="text-center">
                 <td class="border px-4 py-2 w-1/4">{{ aircraft.icao }}</td>
                 <td class="border px-4 py-2 w-1/4">{{ aircraft.registration }}</td>
                 <td class="border px-4 py-2 w-1/4">{{ aircraft.model }}</td>

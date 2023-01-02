@@ -67,6 +67,15 @@
                         <div class="side-menu__title"> Aircraft</div>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ path('app_airport_index') }}"
+                       class="side-menu">
+                        <div class="side-menu__icon">
+                            <i data-lucide="home"></i>
+                        </div>
+                        <div class="side-menu__title"> Airport</div>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -338,6 +347,13 @@
         </div>
         <!-- END: Top Bar -->
         <div class="content">
+            {% for flashMessage in app.session.flashBag.all() %}
+                {% for flash in flashMessage %}
+                    <div class="flash-notice">
+                        {{ flash }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
             {% block body %} {% endblock %}
         </div>
     </div>

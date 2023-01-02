@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}airport index{% endblock %}
+
+{% block body %}
+    <h1>Airport Database</h1>
+
+    <table class="table-auto w-full">
+        <thead>
+        <tr>
+            <th class="px-4 py-2 w-1/4">ICAO</th>
+            <th class="px-4 py-2 w-1/4">Name</th>
+            <th class="px-4 py-2 w-1/4">Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for airport in airports %}
+            <tr class="text-center">
+                <td class="border px-4 py-2 w-1/4">{{ airport.icao }}</td>
+                <td class="border px-4 py-2 w-1/4">{{ airport.name }}</td>
+                <td class="border px-4 py-2 w-1/4">{{ airport.type }}</td>
+
+                <td class="border px-4 py-2 w-1/4">
+                    <a href="{{ path('app_airport_show', {'id': airport.id}) }}"
+                       class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        View
+                    </a>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ pagerfanta(airports) }}
+{% endblock %}
