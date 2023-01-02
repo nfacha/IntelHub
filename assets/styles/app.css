@@ -1,8 +1,8 @@
 @import "css.gg/icons/all.css";
 @import 'css-gg-overrides.scss';
-/*@tailwind base;*/
-/*@tailwind components;*/
-/*@tailwind utilities;*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /*body {*/
 /*    background-color: lightgray;*/
 /*}*/

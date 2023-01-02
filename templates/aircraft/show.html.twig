@@ -329,16 +329,28 @@
         <div class="box intro-y p-5">
             <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                 <div class="font-medium truncate text-base">Last Location</div>
+                {% if isLiveTracking %}
+                    <div class="ml-auto text-xs truncate text-white font-bold bg-green-600 p-1 rounded"
+                         title="Last position {{ lastAircraftPosition.secondsAgo <= 90 ?  lastAircraftPosition.secondsAgo :  lastAircraftPosition.secondsAgo/60 }} minutes ago">Live Tracking
+                    </div>
 
+                {% else %}
+
+                    <div class="ml-auto text-xs truncate text-white font-bold bg-red-600 p-1 rounded">
+                        {{ lastAircraftPosition.secondsAgo/60 <= 60 ?  (lastAircraftPosition.secondsAgo/60)|round :  ((lastAircraftPosition.secondsAgo/60)/64)|round }} {{ lastAircraftPosition.secondsAgo/60 <= 60 ? 'minutes':'hours' }} ago
+                    </div>
+                {% endif %}
             </div>
-            <div>
-                {% if lastAircraftPosition is not null %}
-                <div id="mapLastLocation"
-                     style="height: 250px;"></div>
-                <script>
-                    var mapLastLocation = L.map('mapLastLocation').setView([{{ lastAircraftPosition.latitude }}, {{ lastAircraftPosition.longitude }}], 13);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
+        </div>
+        <div>
+            {% if lastAircraftPosition is not null %}
+            <div id="mapLastLocation"
+                 style="height: 250px;"></div>
+            <script>
+                var mapLastLocation = L.map('mapLastLocation').setView([{{ lastAircraftPosition.latitude }}, {{ lastAircraftPosition.longitude }}], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo(mapLastLocation);
                     L.marker([{{ lastAircraftPosition.latitude }}, {{ lastAircraftPosition.longitude }}]).addTo(mapLastLocation)
                         .bindPopup('Last Location at {{ lastAircraftPosition.positionAt|date('d/m/Y H:i:s') }}')

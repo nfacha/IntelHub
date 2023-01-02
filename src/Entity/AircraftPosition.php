@@ -154,4 +154,12 @@ class AircraftPosition
 
         return $this;
     }
+
+    public function getSecondsAgo()
+    {
+        if (!$this->position_at) {
+            return 0;
+        }
+        return time() - $this->getPositionAt()->getTimestamp();
+    }
 }

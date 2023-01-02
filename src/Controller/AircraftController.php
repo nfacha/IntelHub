@@ -37,9 +37,11 @@ class AircraftController extends AbstractController
             $aircraftRepository->save($aircraft, true);
         }
         $lastAircraftPosition = $aircraftPositionRepository->getLastPosition($aircraft->getIcao());
+        $isLiveTracking = $lastAircraftPosition && $lastAircraftPosition->getPositionAt() > new \DateTimeImmutable('-5 minutes');
         return $this->render('aircraft/show.html.twig', [
             'aircraft' => $aircraft,
             'lastAircraftPosition' => $lastAircraftPosition,
+            'isLiveTracking' => $isLiveTracking,
         ]);
     }
 
