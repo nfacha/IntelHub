@@ -56,12 +56,30 @@ class BaseStationMessage {
             return;
         }
 
+        $lastAircraftPosition = $this->aircraftPositionRepository->findOneBy(['icao' => $this->icao], ['position_at' => 'DESC']);
+        if ($lastAircraftPosition !== null) {
+            $now = new DateTimeImmutable();
+            $diff = $now->getTimestamp() - $lastAircraftPosition->getPositionAt()->getTimestamp();
+            if ($diff < 10) {
+                print_r('Discarded message: Too recent');
+                return;
+            }
+        }
+
         $this->latitude = BaseStationDecoder::getLatitude($raw);
         $this->longitude = BaseStationDecoder::getLongitude($raw);
 
         if ($this->latitude === null || $this->longitude === null) {
             print_r('Discarded message: No position');
             return;
+        }
+        //if position is less than 1km from last position, discard
+        if ($lastAircraftPosition !== null) {
+            $distance = BaseStationUtils::getDistanceMeters($this->latitude, $this->longitude, $lastAircraftPosition->getLatitude(), $lastAircraftPosition->getLongitude());
+            if ($distance < 500) {
+                print_r('Discarded message: Too close to last position');
+                return;
+            }
         }
         $this->transmissionMessageType = BaseStationDecoder::getTransmissionMessageType($raw);
         $this->callsign = BaseStationDecoder::getCallsign($raw);

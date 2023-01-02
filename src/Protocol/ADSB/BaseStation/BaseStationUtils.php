@@ -75,15 +75,39 @@ class BaseStationUtils {
 		return $result;
 	}
 
-	public static function gray2Dec( string $gray ): int {
-		$bin = '';
-		$bin .= $gray[0];
-		for ( $i = 1; $i < strlen( $gray ); $i ++ ) {
-			$bin .= $gray[ $i ] ^ $gray[ $i - 1 ];
-		}
+    public static function gray2Dec(string $gray): int
+    {
+        $bin = '';
+        $bin .= $gray[0];
+        for ($i = 1; $i < strlen($gray); $i++) {
+            $bin .= $gray[$i] ^ $gray[$i - 1];
+        }
 
-		return bindec( $bin );
-	}
+        return bindec($bin);
+    }
+
+    public static function getDistanceMeters(?string $latitude, ?string $longitude, ?string $getLatitude, ?string $getLongitude)
+    {
+        if (is_null($latitude) || is_null($longitude) || is_null($getLatitude) || is_null($getLongitude)) {
+            return null;
+        }
+
+        $earthRadius = 6371000; // meters
+
+        $dLat = deg2rad($getLatitude - $latitude);
+        $dLon = deg2rad($getLongitude - $longitude);
+
+        $lat1 = deg2rad($latitude);
+        $lat2 = deg2rad($getLatitude);
+
+        $a = sin($dLat / 2) * sin($dLat / 2) +
+            sin($dLon / 2) * sin($dLon / 2) * cos($lat1) * cos($lat2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $d = $earthRadius * $c;
+
+        return $d;
+
+    }
 
 
 }
