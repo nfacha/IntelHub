@@ -89,7 +89,7 @@ class BaseStationUtils {
     public static function getDistanceMeters(?string $latitude, ?string $longitude, ?string $getLatitude, ?string $getLongitude)
     {
         if (is_null($latitude) || is_null($longitude) || is_null($getLatitude) || is_null($getLongitude)) {
-            return null;
+            return 9999999999;
         }
 
         $earthRadius = 6371000; // meters

@@ -6,6 +6,7 @@ use App\Entity\Aircraft;
 use App\Entity\AircraftPosition;
 use App\Repository\AircraftPositionRepository;
 use App\Repository\AircraftRepository;
+use App\Utils\CacheUtils;
 use DateTimeImmutable;
 
 class BaseStationMessage {
@@ -40,47 +41,49 @@ class BaseStationMessage {
 		$this->raw  = $raw;
         $this->icao = BaseStationDecoder::getIcao($raw);
         if ($this->icao === null) {
-            print_r('Discarded message: No ICAO 1');
+            print_r('Discarded message: No ICAO 1' . "\n");
             return;
         }
         if ($this->icao === '') {
-            print_r('Discarded message: No ICAO 2');
+            print_r('Discarded message: No ICAO 2' . "\n");
             return;
         }
         if ($this->icao === '0') {
-            print_r('Discarded message: No ICAO 3');
+            print_r('Discarded message: No ICAO 3' . "\n");
             return;
         }
         if (str_starts_with($this->icao, '~')) {
-            print_r('Discarded message: Fake ICAO');
+            print_r('Discarded message: Fake ICAO' . "\n");
             return;
         }
+        $cache = new CacheUtils();
+        $aircraftPositionTimeCache = $cache->read('last_aircraft_position_time_' . $this->icao);
+        if ($aircraftPositionTimeCache !== null) {
+            print_r('Discarded message: Too recent' . "\n");
+            return;
 
-        $lastAircraftPosition = $this->aircraftPositionRepository->findOneBy(['icao' => $this->icao], ['position_at' => 'DESC']);
-        if ($lastAircraftPosition !== null) {
-            $now = new DateTimeImmutable();
-            $diff = $now->getTimestamp() - $lastAircraftPosition->getPositionAt()->getTimestamp();
-            if ($diff < 10) {
-                print_r('Discarded message: Too recent');
-                return;
-            }
         }
+        $cache->write('last_aircraft_position_time_' . $this->icao, '1', 10);
 
         $this->latitude = BaseStationDecoder::getLatitude($raw);
         $this->longitude = BaseStationDecoder::getLongitude($raw);
 
         if ($this->latitude === null || $this->longitude === null) {
-            print_r('Discarded message: No position');
+            print_r('Discarded message: No position' . "\n");
             return;
         }
-        //if position is less than 1km from last position, discard
-        if ($lastAircraftPosition !== null) {
-            $distance = BaseStationUtils::getDistanceMeters($this->latitude, $this->longitude, $lastAircraftPosition->getLatitude(), $lastAircraftPosition->getLongitude());
+        $aircraftPositionCache = $cache->read('last_aircraft_position_' . $this->icao);
+        if ($aircraftPositionCache !== null) {
+            $parts = explode('@', $aircraftPositionCache);
+            $lat = $parts[0];
+            $lon = $parts[1];
+            $distance = BaseStationUtils::getDistanceMeters($this->latitude, $this->longitude, $lat, $lon);
             if ($distance < 500) {
-                print_r('Discarded message: Too close to last position');
+                print_r('Discarded message: Too close to last position, distance: ' . $distance . "\n");
                 return;
             }
         }
+        $cache->write('last_aircraft_position_' . $this->icao, $this->latitude . '@' . $this->longitude, 60);
         $this->transmissionMessageType = BaseStationDecoder::getTransmissionMessageType($raw);
         $this->callsign = BaseStationDecoder::getCallsign($raw);
         $this->altitude = BaseStationDecoder::getAltitude($raw);
@@ -97,7 +100,7 @@ class BaseStationMessage {
 
 	public function getDescription(): string {
 		//DEBUG
-		return $this->callsign . ' (' . $this->icao . ') ' . $this->altitude . 'ft ' . $this->groundSpeed . 'kt ' . $this->track . '° ' . $this->latitude . ' ' . $this->longitude . ' ' . $this->verticalRate . 'ft/min ' . $this->squawk . ' ' . $this->onGround;
+        return $this->callsign . ' (' . $this->icao . ') ' . $this->altitude . 'ft ' . $this->groundSpeed . 'kt ' . $this->track . '° ' . $this->latitude . ' ' . $this->longitude . ' ' . $this->verticalRate . 'ft/min ' . $this->squawk . ' ' . $this->onGround . "\n";
 	}
 
 	private function saveAircraft(): Aircraft {

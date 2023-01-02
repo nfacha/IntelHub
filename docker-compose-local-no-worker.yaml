@@ -13,6 +13,7 @@ services:
     depends_on:
       - postgresql
       - rabbitmq
+      - memcached
   #  worker:
   #    build:
   #      context: .
@@ -54,7 +55,10 @@ services:
     ports:
       #      - '5672:5672' # No remote access is needed
       - '15672:15672'
-
+  memcached:
+    image: memcached
+    ports:
+      - 11211:11211
 volumes:
   postgres-data:
   pgadmin-data:

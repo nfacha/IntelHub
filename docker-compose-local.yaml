@@ -13,6 +13,7 @@ services:
     depends_on:
       - postgresql
       - rabbitmq
+      - memcached
   worker:
     build:
       context: .
@@ -28,6 +29,7 @@ services:
       - web
       - postgresql
       - rabbitmq
+      - memcached
   postgresql:
     image: postgis/postgis:14-3.3-alpine
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
@@ -54,7 +56,10 @@ services:
     ports:
       #      - '5672:5672' # No remote access is needed
       - '15672:15672'
-
+  memcached:
+    image: memcached
+    ports:
+      - "11211:11211"
 volumes:
   postgres-data:
   pgadmin-data:

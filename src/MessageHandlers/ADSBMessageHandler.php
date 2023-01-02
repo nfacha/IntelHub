@@ -23,6 +23,6 @@ class ADSBMessageHandler implements MessageHandlerInterface
     public function __invoke(ADSBMessage $message)
     {
         $msg = new BaseStationMessage($message->getContent(), $this->aircraftRepository, $this->aircraftPositionRepository);
-        print_r($msg->getDescription());
+//        print_r($msg->getDescription());
     }
 }

@@ -8,6 +8,10 @@ services:
       - ./.env:/var/www/intelhub/.env:ro
     ports:
       - "80:80"
+    depends_on:
+      - postgresql
+      - rabbitmq
+      - memcached
   worker:
     image: "registry.facha.dev/facha/intelhub:latest"
     volumes:
@@ -17,6 +21,10 @@ services:
       - ./service-config/supervisor/supervisord-worker.conf:/etc/supervisor/conf.d/supervisord.conf:ro
     ports:
       - "5000-5100:5000-5100"
+    depends_on:
+      - postgresql
+      - rabbitmq
+      - memcached
   postgresql:
     image: postgis/postgis:14-3.3-alpine
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
@@ -41,8 +49,12 @@ services:
   rabbitmq:
     image: rabbitmq:3.11-management
     ports:
-      - '5672:5672' # No remote access is needed
+      #      - '5672:5672' # No remote access is needed
       - '15672:15672'
+  memcached:
+    image: memcached
+    ports:
+      - 11211:11211
 volumes:
   postgres-data:
   pgadmin-data:
