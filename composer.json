@@ -6,7 +6,9 @@
 	"require": {
 		"php": ">=8.1",
 		"ext-ctype": "*",
+		"ext-curl": "*",
 		"ext-iconv": "*",
+		"ext-memcached": "*",
 		"ext-zip": "*",
 		"babdev/pagerfanta-bundle": "^3.7",
 		"doctrine/annotations": "^1.0",
@@ -21,6 +23,7 @@
 		"react/http": "^1.8",
 		"react/socket": "^1.12",
 		"sensio/framework-extra-bundle": "^6.1",
+		"sentry/sentry-symfony": "^4.5",
 		"symfony/amqp-messenger": "6.1.*",
 		"symfony/asset": "6.1.*",
 		"symfony/console": "6.1.*",
@@ -53,9 +56,7 @@
 		"symfony/yaml": "6.1.*",
 		"symfonycasts/verify-email-bundle": "^1.12",
 		"twig/extra-bundle": "^2.12|^3.0",
-		"twig/twig": "^2.12|^3.0",
-		"ext-curl": "*",
-		"ext-memcached": "*"
+		"twig/twig": "^2.12|^3.0"
 	},
 	"config": {
 		"allow-plugins": {
