@@ -44,6 +44,7 @@ class MictronicsFileMessageHandler implements MessageHandlerInterface
                     $aircraft->setModelIcao($json_data[$icao]['t']);
                     $aircraft->setIsMilitary($json_data[$icao]['f'] === "10");
                     $aircraft->setModel($json_data[$icao]['desc']);
+                    $aircraft->setCreatedAt(new \DateTimeImmutable());
                     echo "Adding new Aircraft: " . $icao . PHP_EOL;
                 }
             } catch (Exception $e) {
