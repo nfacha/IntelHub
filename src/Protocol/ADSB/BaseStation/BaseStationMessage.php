@@ -108,8 +108,9 @@ class BaseStationMessage {
 		if ( $aircraft === null ) {
 			$aircraft = new Aircraft();
 			$aircraft->setIcao( $this->icao );
-			$aircraft->setIsMilitary( false );
-			$this->aircraftRepository->save( $aircraft, true );
+			$aircraft->setIsMilitary(false);
+            $aircraft->setCreatedAt(new DateTimeImmutable());
+            $this->aircraftRepository->save($aircraft, true);
 		}
 
 		return $aircraft;
