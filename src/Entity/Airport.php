@@ -242,4 +242,26 @@ class Airport
 
         return $this;
     }
+
+    public function userFriendlyType(): string
+    {
+        switch ($this->type) {
+            case 'large_airport':
+                return 'Large Airport';
+            case 'medium_airport':
+                return 'Medium Airport';
+            case 'small_airport':
+                return 'Small Airport';
+            case 'closed':
+                return 'Closed';
+            case 'heliport':
+                return 'Heliport';
+            case 'balloonport':
+                return 'Balloonport';
+            case 'seaplane_base':
+                return 'Seaplane Base';
+            default:
+                return 'Unknown';
+        }
+    }
 }

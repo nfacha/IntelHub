@@ -1,5 +1,6 @@
 .wrapper {
-    @apply min-w-0 h-screen overflow-y-auto overflow-x-hidden flex-1 pb-6 pr-6;
+
+	@apply min-w-0 h-screen overflow-y-auto overflow-x-hidden flex-1 pb-6 pr-6;
     @include media-breakpoint-down(xl) {
         @apply ml-0 px-4 max-w-full;
     }
@@ -20,4 +21,5 @@
         content: "";
         @apply w-full h-px block;
     }
+
 }

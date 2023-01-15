@@ -2,61 +2,166 @@
 
 {% block title %}Airport{% endblock %}
 
+
 {% block body %}
-    <h1>Airport</h1>
+    <div class="grid grid-cols-12 gap-5 mt-5">
+        <!-- BEGIN: Profile Cover -->
+        <div class="col-span-12">
+            <div class="box intro-y px-3 pt-3 pb-5">
+                <div class="image-fit h-80 before:content-[''] before:absolute before:w-full before:h-full before:bg-gradient-to-b from-black/20 to-black before:rounded-md before:z-10 ">
+                    {#                    <img alt="" #}
+                    {#                         class="rounded-md md:object-[0px_-170px]" #}
+                    {#                         src="dist/images/preview-16.jpg"> #}
+                </div>
+                <div class="flex flex-col 2xl:flex-row items-center justify-center text-center 2xl:text-left">
+                    <div class="-mt-20 2xl:-mt-10 2xl:ml-10 z-20">
+                        <div class="image-fit w-40 h-40 rounded-full border-4 border-white shadow-md overflow-hidden">
+                            <img alt=""
+                                 src="https://via.placeholder.com/150">
+                        </div>
+                    </div>
+                    <div class="2xl:ml-5">
+                        <h2 class="text-2xl mt-5 font-medium">
+                            {{ airport.name }}
+                        </h2>
+                        <div class="mt-2 text-slate-500 flex items-center justify-center 2xl:justify-start">
+                            <i data-lucide="briefcase"
+                               class="w-4 h-4 mr-2"></i> {{ airport.type }}
+                        </div>
+                        <div class="mt-2 text-slate-500 flex items-center justify-center 2xl:justify-start">
+                            <i data-lucide="camera"
+                               class="w-4 h-4 mr-2"></i>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ airport.id }}</td>
-        </tr>
-        <tr>
-            <th>Ident</th>
-            <td>{{ airport.ident }}</td>
-        </tr>
-        <tr>
-            <th>Type</th>
-            <td>{{ airport.type }}</td>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ airport.name }}</td>
-        </tr>
-        <tr>
-            <th>Latitude</th>
-            <td>{{ airport.latitude }}</td>
-        </tr>
-        <tr>
-            <th>Longitude</th>
-            <td>{{ airport.longitude }}</td>
-        </tr>
-        <tr>
-            <th>Elevation_ft</th>
-            <td>{{ airport.elevationFt }}</td>
-        </tr>
-        <tr>
-            <th>Scheduled_service</th>
-            <td>{{ airport.scheduledService ? 'Yes' : 'No' }}</td>
-        </tr>
-        <tr>
-            <th>Icao</th>
-            <td>{{ airport.icao }}</td>
-        </tr>
-        <tr>
-            <th>Iata</th>
-            <td>{{ airport.iata }}</td>
-        </tr>
-        <tr>
-            <th>External_id</th>
-            <td>{{ airport.externalId }}</td>
-        </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_airport_index') }}">back to list</a>
+                        </div>
+                    </div>
+                    <div class="mx-auto grid grid-cols-3 gap-y-2 md:gap-y-0 gap-x-5 h-20 mt-5 2xl:border-l 2xl:border-r border-dashed border-slate-200 px-10 mb-6 2xl:mb-0">
+                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                            <i data-lucide="map-pin"
+                               class="w-4 h-4 mr-2"></i> {{ airport.latitude }}, {{ airport.longitude }}
+                        </div>
+                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                            <i data-lucide="plane"
+                               class="w-4 h-4 mr-2"></i> {{ airport.iata | default('No IATA') }}
+                        </div>
+                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                            <i data-lucide="hash"
+                               class="w-4 h-4 mr-2"></i> {{ airport.icao }}
+                        </div>
+                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                            <i data-lucide="briefcase"
+                               class="w-4 h-4 mr-2"></i> {{ airport.userFriendlyType }}
+                        </div>
+                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                            <i data-lucide="mountain"
+                               class="w-4 h-4 mr-2"></i> {{ airport.elevationFt }}
+                        </div>
+                        <div class="col-span-2 md:col-span-1 flex items-center justify-center 2xl:justify-start">
+                            <i data-lucide="clock"
+                               class="w-4 h-4 mr-2"></i> {{ airport.scheduledService == 1 ? 'Scheduled Service' : 'No Scheduled Service' }}
+                        </div>
+                    </div>
+                    <div class="flex 2xl:mr-10 mt-5">
+                        {#                        <button class="btn btn-primary mr-2 w-32"> #}
+                        {#                            <i class="w-4 h-4 mr-2" #}
+                        {#                               data-lucide="user-plus"></i> Follow #}
+                        {#                        </button> #}
+                        {% if is_granted('ROLE_ADMIN', app.user) %}
+                            <a class="btn btn-outline-secondary w-32"
+                               href="{{ path('app_airport_edit', {'id': airport.id}) }}">
+                                <i class="w-4 h-4 mr-2"
+                                   data-lucide="pencil"></i> Edit
+                            </a>
 
-    <a href="{{ path('app_airport_edit', {'id': airport.id}) }}">edit</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-12 xl:col-span-4">
+            <div class="box intro-y p-5">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium truncate text-base">Radio Frequencies</div>
+                </div>
+                <div>
+                    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+                        {% if airport.airportFrequencies | length > 0 %}
+                            <table class="table table-report -mt-2">
+                                <thead>
+                                <tr>
+                                    <th class="whitespace-nowrap">FREQUENCY</th>
+                                    <th class="whitespace-nowrap">TYPE</th>
+                                    <th class="text-center whitespace-nowrap">DESCRIPTION</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for frequency in airport.airportFrequencies %}
+                                    <tr class="intro-x">
+                                        <td class="text-center">{{ frequency.frequency }}</td>
+                                        <td class="text-center">{{ frequency.type }}</td>
+                                        <td class="text-center">{{ frequency.description }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
 
-    {{ include('airport/_delete_form.html.twig') }}
+                        {% else %}
+                            <div class="text-center h-250">
+                                <div class="font-medium text-base">No Frequencies</div>
+                                <div class="mt-1 text-slate-500">No frequency information is available for this Airport</div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-span-12 xl:col-span-5">
+            <div class="box intro-y p-5">
+                <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
+                    <div class="font-medium truncate text-base">Runways</div>
+                </div>
+                <div>
+                    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+                        {% if airport.airportFrequencies | length == 0 %}
+                            <table class="table table-report -mt-2">
+                                <thead>
+                                <tr>
+                                    <th class="whitespace-nowrap">HE</th>
+                                    <th class="whitespace-nowrap">LE</th>
+                                    <th class="whitespace-nowrap">LENGHT (ft)</th>
+                                    <th class="whitespace-nowrap">WIDTH (ft)</th>
+                                    <th class="whitespace-nowrap">SURFACE</th>
+                                    <th class="whitespace-nowrap">LIGHTED</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for runway in airport.airportRunways %}
+                                    <tr class="intro-x">
+                                        <td class="text-center">{{ runway.he_ident }}</td>
+                                        <td class="text-center">{{ runway.le_ident }}</td>
+                                        <td class="text-center">{{ runway.lenght_ft }}</td>
+                                        <td class="text-center">{{ runway.width_ft }}</td>
+                                        <td class="text-center">{{ runway.surface }}</td>
+                                        <td class="text-center">{{ runway.lighted == 1 ? 'Yes' : 'No' }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        {% else %}
+                            <div class="text-center h-250">
+                                <div class="font-medium text-base">No Frequencies</div>
+                                <div class="mt-1 text-slate-500">No frequency information is available for this Airport</div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
