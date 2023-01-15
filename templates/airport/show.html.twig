@@ -89,8 +89,8 @@
                             <table class="table table-report -mt-2">
                                 <thead>
                                 <tr>
-                                    <th class="whitespace-nowrap">FREQUENCY</th>
-                                    <th class="whitespace-nowrap">TYPE</th>
+                                    <th class="text-center whitespace-nowrap">FREQUENCY</th>
+                                    <th class="text-center whitespace-nowrap">TYPE</th>
                                     <th class="text-center whitespace-nowrap">DESCRIPTION</th>
                                 </tr>
                                 </thead>
@@ -128,23 +128,23 @@
                             <table class="table table-report -mt-2">
                                 <thead>
                                 <tr>
-                                    <th class="whitespace-nowrap">HE #</th>
-                                    <th class="whitespace-nowrap">LE #</th>
-                                    <th class="whitespace-nowrap">LENGHT (ft)</th>
-                                    <th class="whitespace-nowrap">WIDTH (ft)</th>
-                                    <th class="whitespace-nowrap">SURFACE</th>
-                                    <th class="whitespace-nowrap">LIGHTED</th>
+                                    <th class="text-center whitespace-nowrap">HE #</th>
+                                    <th class="text-center whitespace-nowrap">LE #</th>
+                                    <th class="text-center whitespace-nowrap">LENGHT (ft)</th>
+                                    <th class="text-center whitespace-nowrap">WIDTH (ft)</th>
+                                    <th class="text-center whitespace-nowrap">SURFACE</th>
+                                    <th class="text-center whitespace-nowrap">LIGHTED</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for runway in airport.airportRunways %}
                                     <tr class="intro-x">
-                                        <td class="text-center">{{ runway.he_ident }}</td>
-                                        <td class="text-center">{{ runway.le_ident }}</td>
-                                        <td class="text-center">{{ runway.lenght_ft }}</td>
-                                        <td class="text-center">{{ runway.width_ft }}</td>
+                                        <td class="text-center">{{ runway.heIdent }}</td>
+                                        <td class="text-center">{{ runway.leIdent }}</td>
+                                        <td class="text-center">{{ runway.lenghtFt }}</td>
+                                        <td class="text-center">{{ runway.widthFt }}</td>
                                         <td class="text-center">{{ runway.surface }}</td>
-                                        <td class="text-center">{{ runway.lighted == 1 ? 'Yes' : 'No' }}</td>
+                                        <td class="text-center">{{ runway.isLighted == 1 ? 'Yes' : 'No' }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
