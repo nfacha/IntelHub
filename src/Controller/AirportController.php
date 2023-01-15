@@ -19,11 +19,20 @@ class AirportController extends AbstractController
     public function index(AirportRepository $airportRepository, Request $request): Response
     {
         $queryBuilder = $airportRepository->createQueryBuilder('a');
+        $query = $request->get('q');
+        if ($query) {
+            $queryBuilder
+                ->andWhere('a.icao LIKE :query')
+                ->orWhere('a.iata LIKE :query')
+                ->orWhere('UPPER(a.name) LIKE :query')
+                ->setParameter('query', '%' . strtoupper($query) . '%');
+        }
         $adapter = new QueryAdapter($queryBuilder);
         $pagerFanta = Pagerfanta::createForCurrentPageWithMaxPerPage($adapter, $request->get('page', 1), 20);
 
         return $this->render('airport/index.html.twig', [
             'airports' => $pagerFanta,
+            'query' => $query,
         ]);
     }
 
