@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-12 xl:col-span-4">
+        <div class="col-span-6 xl:col-span-6">
             <div class="box intro-y p-5">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium truncate text-base">Radio Frequencies</div>
@@ -117,14 +117,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-12 xl:col-span-5">
+        <div class="col-span-6 xl:col-span-6">
             <div class="box intro-y p-5">
                 <div class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 pb-5 mb-5">
                     <div class="font-medium truncate text-base">Runways</div>
                 </div>
                 <div>
                     <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-                        {% if airport.airportFrequencies | length == 0 %}
+                        {% if airport.airportFrequencies | length > 0 %}
                             <table class="table table-report -mt-2">
                                 <thead>
                                 <tr>
@@ -152,8 +152,8 @@
 
                         {% else %}
                             <div class="text-center h-250">
-                                <div class="font-medium text-base">No Frequencies</div>
-                                <div class="mt-1 text-slate-500">No frequency information is available for this Airport</div>
+                                <div class="font-medium text-base">No Runways</div>
+                                <div class="mt-1 text-slate-500">No runway information is available for this Airport</div>
                             </div>
                         {% endif %}
                     </div>
